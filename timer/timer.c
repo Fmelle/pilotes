@@ -41,9 +41,6 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	u32 frequence_timer = CLOCK_GetTIMCLK(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
 	
-	// Set channel pour configuration
-	Channel--;
-	
 	// Rapport SYSTICK / Frequence Choisi
 	float rapport_freq = (float)frequence_timer / Duree_hz;
 
@@ -54,17 +51,37 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	Timer->ARR = (u16)(rapport_freq / (PSC + 1.0));
 	float ARR = (float)Timer->ARR;
 	
-	// Configuration de durée de cycle pour le PWM (init 100 %)
-	
-	
-	// Configuration en PWM Mode 1
-	if (Channel < 2) {
-		Timer->CCMR1 |= (0x110 << (Channel * 8 + 4));
-	} else {
-		Timer->CCMR2 |= (0x110 << (Channel * 8 + 4));
+	// Configuration de durée de cycle pour le PWM (init 100 % = 1 / 10 Periode de Timer)
+	switch (Channel) {
+		case 1:
+			Timer->CCR1 |= (u16)(ARR / 10.0);
+			// Configuration en mode PWM Mode 1
+			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
+			break;
+		case 2:
+			Timer->CCR2 |= (u16)(ARR / 10.0);
+			// Configuration en mode PWM Mode 1
+			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
+			break;
+		case 3:
+			Timer->CCR3 |= (u16)(ARR / 10.0);
+			// Configuration en mode PWM Mode 1
+			Timer->CCMR2 |= (0x110 << ((Channel - 1) * 8 + 4));
+			break;
+		case 4:
+			Timer->CCR4 |= (u16)(ARR / 10.0);
+			// Configuration en mode PWM Mode 1
+			Timer->CCMR2 |= (0x110 << ((Channel - 1) * 8 + 4));
+			break;
+		default:
+			Timer->CCR1 |= (u16)(ARR / 10.0);
+			// Configuration en mode PWM Mode 1
+			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
+			break;
 	}
+
 	// Enable PWM
-	Timer->CCER |= (0x01 << Channel * 4);
+	Timer->CCER |= (0x01 << (Channel - 1) * 4);
 	
 	// Enable Timer
 	Timer->CR1 |= (0x01 << 0);

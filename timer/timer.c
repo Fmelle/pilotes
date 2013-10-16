@@ -127,7 +127,6 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
 	
 	//Configuration de a valeur de l'autoreload
 	Timer->ARR = (u16) Overflow;
-	
 }
 
 /////////////////						  /////////////////

@@ -3,9 +3,15 @@
 #include "timer.h"
 
 // Timer Handler fonctions
-// For configuration
+// For configuration of interruption handlers
 static void (* ptfcTim1) (void);
 static void (* ptfcTim2) (void);
+
+
+/////////////////						  /////////////////
+// 					  INIT TIMERS						 //
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 
 // INIT
 void Init_Timers_1234(void) {
@@ -36,7 +42,7 @@ float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
 }
 
-// Set Advanced Timer PWM (TIM1, TIM2)
+// Set Advanced Timer PWM (TIM1, TIM8)
 float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	u32 frequence_timer = CLOCK_GetTIMCLK(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
@@ -88,6 +94,40 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	
 	// Verification of the timer's given frequence
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
+}
+
+// Set Basic Timer Incremental Mode (TIM2, TIM3, TIM4)
+void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
+
+// En-dessous: Code trouvé dans le main de projet lié au pilote girouette
+/*
+	Init_Ports_IO();
+	Init_Timers();
+	// la girouette est rélier (physiquement) à PA5 ,PA6 et PA7
+	// PA6= TIM3_CH1 et PA7=TIM3_CH2 donc les voie A et B du codeur sont bien reliés au timer
+	//Reste a configuré les PA5,6,7 en INPUT FLOATING
+	
+	//parametrage des ports d'entrée du gpio pour le timer incremental
+	Port_IO_Init_Input(GPIOA,5);
+	Port_IO_Init_Input(GPIOA,6);
+	Port_IO_Init_Input(GPIOA,7);
+	
+	//configuration du timer incremental
+	
+	Timer_1234_Encoder(TIM3,360);
+	
+	while(!(GPIOA->ODR & (0x01 << 5)){} // On attent de passer par la position 0 ( la voie index passe a 1 à cette endroit)
+
+	// Enable Timer
+	Timer->CR1 |= (0x01 << 0);
+*/
+	
+	//Activation du mode encoder sur les 2 voies
+	Timer->SMCR |= 0x11;
+	
+	//Configuration de a valeur de l'autoreload
+	Timer->ARR = (u16) Overflow;
+	
 }
 
 /////////////////						  /////////////////

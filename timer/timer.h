@@ -61,6 +61,14 @@ float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Duree_us, u8 Channel);
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
 
 /**
+* Demarre un Timer Incremental
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
+* timer considéré
+* 
+**/
+void Timer_Incremental_Start(TIM_TypeDef * Timer);
+
+/**
 * Configure la routine d'interruption de TIM1 en mode UPDATE (débordement de timer)
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
 * timer considéré
@@ -91,14 +99,5 @@ void TIM2_Activate_IT(TIM_TypeDef * Timer, u8 Priority, void (*IT_function) (voi
 * 
 **/
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
-
-
-/**
-* Demarre un Timer Incremental
-* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
-* timer considéré
-* 
-**/
-void Timer_Incremental_Start(TIM_TypeDef * Timer);
 
 #endif /* _TIMER_H__ */

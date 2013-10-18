@@ -1,6 +1,7 @@
 #include "stm32f10x.h"
 #include "clock.h"
 #include "timer.h"
+#include "../gpio/gpio.h"
 
 // Timer Handler fonctions
 // For configuration of interruption handlers
@@ -99,6 +100,7 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 // Set Basic Timer Incremental Mode (TIM2, TIM3, TIM4)
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
 
+	
 // En-dessous: Code trouvé dans le main de projet lié au pilote girouette
 /*
 	Init_Ports_IO();
@@ -127,7 +129,23 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
 	
 	//Configuration de a valeur de l'autoreload
 	Timer->ARR = (u16) Overflow;
+	
+	
 }
+
+
+void Timer_Incremental_Start(TIM_TypeDef * Timer){
+
+
+// On attend de passer a la position reference
+while (Port_IO_Read(GPIOA,5) == 0) ;
+	
+//Le comptage demarre
+Timer->CR1 |= (0x01 << 0);	
+
+}
+
+
 
 /////////////////						  /////////////////
 // 					  INTERRUPTIONS						 //

@@ -7,6 +7,15 @@
 static void (* ptfcTim1) (void);
 static void (* ptfcTim2) (void);
 
+/////////////////						  /////////////////
+// 					  UTILITARIES						 //
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
+
+// Get Timer Frequence
+u32 Get_Tim_Freq(TIM_TypeDef * Timer) {
+	return CLOCK_GetTIMCLK(Timer);
+}
 
 /////////////////						  /////////////////
 // 					  INIT TIMERS						 //
@@ -23,7 +32,7 @@ void Init_Timers_1234(void) {
 
 // Set Basic Timer (TIM2, TIM3, TIM4)
 float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
-	u32 frequence_timer = CLOCK_GetTIMCLK(Timer);
+	u32 frequence_timer = Get_Tim_Freq(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
 	
 	// Rapport SYSTICK / Frequence Choisi
@@ -44,7 +53,7 @@ float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
 
 // Set Advanced Timer PWM (TIM1, TIM8)
 float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
-	u32 frequence_timer = CLOCK_GetTIMCLK(Timer);
+	u32 frequence_timer = Get_Tim_Freq(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
 	
 	// Rapport SYSTICK / Frequence Choisi
@@ -94,6 +103,37 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	
 	// Verification of the timer's given frequence
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
+}
+
+float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
+	float CCR;
+	u32 frequence_timer = Get_Tim_Freq(Timer);
+
+	// Configuration de durée de cycle pour le PWM
+	switch (Channel) {
+		case 1:
+			Timer->CCR1 |= (u16)();
+			CCR = (float)Timer->CCR1;
+			break;
+		case 2:
+			Timer->CCR2 |= (u16)();
+			CCR = (float)Timer->CCR2;
+			break;
+		case 3:
+			Timer->CCR3 |= (u16)();
+			CCR = (float)Timer->CCR3;
+			break;
+		case 4:
+			Timer->CCR4 |= (u16)();
+			CCR = (float)Timer->CCR4;
+			break;
+		default:
+			Timer->CCR1 |= (u16)();
+			CCR = (float)Timer->CCR1;
+			break;
+	}
+
+	return (((float)Timer->PSC + 1.0) * (CCR + 1.0)) / frequence_timer * 1000000.0;
 }
 
 // Set Basic Timer Incremental Mode (TIM2, TIM3, TIM4)

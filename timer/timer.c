@@ -139,38 +139,11 @@ float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 
 // Set Basic Timer Incremental Mode (TIM2, TIM3, TIM4)
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
-
-	
-// En-dessous: Code trouvé dans le main de projet lié au pilote girouette
-/*
-	Init_Ports_IO();
-	Init_Timers();
-	// la girouette est rélier (physiquement) à PA5 ,PA6 et PA7
-	// PA6= TIM3_CH1 et PA7=TIM3_CH2 donc les voie A et B du codeur sont bien reliés au timer
-	//Reste a configuré les PA5,6,7 en INPUT FLOATING
-	
-	//parametrage des ports d'entrée du gpio pour le timer incremental
-	Port_IO_Init_Input(GPIOA,5);
-	Port_IO_Init_Input(GPIOA,6);
-	Port_IO_Init_Input(GPIOA,7);
-	
-	//configuration du timer incremental
-	
-	Timer_1234_Encoder(TIM3,360);
-	
-	while(!(GPIOA->ODR & (0x01 << 5)){} // On attent de passer par la position 0 ( la voie index passe a 1 à cette endroit)
-
-	// Enable Timer
-	Timer->CR1 |= (0x01 << 0);
-*/
-	
 	//Activation du mode encoder sur les 2 voies
 	Timer->SMCR |= 0x11;
 	
 	//Configuration de a valeur de l'autoreload
 	Timer->ARR = (u16) Overflow;
-	
-	
 }
 
 // Start incremental timer

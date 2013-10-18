@@ -1,7 +1,6 @@
 #ifndef _GIROUETTE_H__
 #define _GIROUETTE_H__
 
-
 //Intialise la girouette
 void Init_Girouette(void);
 

@@ -80,5 +80,25 @@ d'interruption
 **/
 void TIM2_Activate_IT(TIM_TypeDef * Timer, u8 Priority, void (*IT_function) (void));
 
-#endif /* _TIMER_H__ */
 
+
+
+/**
+* Initialise un Timer Incremental
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
+* timer considéré
+* @param Overflow, jusqu'à combien le timer compte
+* 
+**/
+void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
+
+
+/**
+* Demarre un Timer Incremental
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
+* timer considéré
+* 
+**/
+void Timer_Incremental_Start(TIM_TypeDef * Timer);
+
+#endif /* _TIMER_H__ */

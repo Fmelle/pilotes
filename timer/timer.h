@@ -2,6 +2,14 @@
 #define _TIMER_H__
 
 /**
+* Récupérer frequence d'horloge
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef) du
+* timer considéré
+* @return Le fréquence d'horloge (de type u32)
+**/
+u32 Get_Tim_Freq(TIM_TypeDef * Timer);
+
+/**
 * Activer Timers 1, 2, 3, 4
 * @param Void
 * @return Void
@@ -30,6 +38,19 @@ float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us);
 **/
 float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel);
 
+
+/**
+* Set durée du cycle
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
+* timer considéré
+* @param Duree_us Intervalle de temps exprimé en μs entre
+* deux débordements successifs
+* @param Channel Le valeur du channel que on souhaite
+* configurer en PWM
+* @return Le durée véritable qui a été configurée
+**/
+float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Duree_us, u8 Channel);
+
 /**
 * Configure un Timer en Incremental
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
@@ -38,6 +59,14 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel);
 * @return ?????
 **/
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
+
+/**
+* Demarre un Timer Incremental
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
+* timer considéré
+* 
+**/
+void Timer_Incremental_Start(TIM_TypeDef * Timer);
 
 /**
 * Configure la routine d'interruption de TIM1 en mode UPDATE (débordement de timer)
@@ -70,14 +99,5 @@ void TIM2_Activate_IT(TIM_TypeDef * Timer, u8 Priority, void (*IT_function) (voi
 * 
 **/
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
-
-
-/**
-* Demarre un Timer Incremental
-* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
-* timer considéré
-* 
-**/
-void Timer_Incremental_Start(TIM_TypeDef * Timer);
 
 #endif /* _TIMER_H__ */

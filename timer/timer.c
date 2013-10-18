@@ -106,34 +106,34 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
 }
 
-float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
-	float CCR;
+float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Cycle, u8 Channel) {
+	float CCR, ARR = (float)Timer->ARR;
 	u32 frequence_timer = Get_Tim_Freq(Timer);
 
 	// Configuration de durée de cycle pour le PWM
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 |= (u16)();
+			Timer->CCR1 |= (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR1;
 			break;
 		case 2:
-			Timer->CCR2 |= (u16)();
+			Timer->CCR2 |= (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR2;
 			break;
 		case 3:
-			Timer->CCR3 |= (u16)();
+			Timer->CCR3 |= (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR3;
 			break;
 		case 4:
-			Timer->CCR4 |= (u16)();
+			Timer->CCR4 |= (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR4;
 			break;
 		default:
-			Timer->CCR1 |= (u16)();
+			Timer->CCR1 |= (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR1;
 			break;
 	}
-
+	
 	return (((float)Timer->PSC + 1.0) * (CCR + 1.0)) / frequence_timer * 1000000.0;
 }
 
@@ -150,7 +150,7 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
 void Timer_Incremental_Start(TIM_TypeDef * Timer){
 
 	// On attend de passer a la position reference
-	while (Port_IO_Read(GPIOA,5) == 0) ;
+	while (Port_IO_Read(GPIOA,5) == 0);
 		
 	//Le comptage demarre
 	Timer->CR1 |= (0x01 << 0);	

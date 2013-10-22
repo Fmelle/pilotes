@@ -70,27 +70,27 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	// Configuration de durée de cycle pour le PWM (init 100 % = 1 / 10 Periode de Timer)
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 |= (u16)(ARR / 10.0);
+			Timer->CCR1 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
 			break;
 		case 2:
-			Timer->CCR2 |= (u16)(ARR / 10.0);
+			Timer->CCR2 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
 			break;
 		case 3:
-			Timer->CCR3 |= (u16)(ARR / 10.0);
+			Timer->CCR3 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR2 |= (0x110 << ((Channel - 1) * 8 + 4));
 			break;
 		case 4:
-			Timer->CCR4 |= (u16)(ARR / 10.0);
+			Timer->CCR4 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR2 |= (0x110 << ((Channel - 1) * 8 + 4));
 			break;
 		default:
-			Timer->CCR1 |= (u16)(ARR / 10.0);
+			Timer->CCR1 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
 			break;
@@ -113,23 +113,23 @@ float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Cycle, u8 Channel) 
 	// Configuration de durée de cycle pour le PWM
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 |= (u16)(ARR * Perc_Cycle);
+			Timer->CCR1 = (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR1;
 			break;
 		case 2:
-			Timer->CCR2 |= (u16)(ARR * Perc_Cycle);
+			Timer->CCR2 = (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR2;
 			break;
 		case 3:
-			Timer->CCR3 |= (u16)(ARR * Perc_Cycle);
+			Timer->CCR3 = (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR3;
 			break;
 		case 4:
-			Timer->CCR4 |= (u16)(ARR * Perc_Cycle);
+			Timer->CCR4 = (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR4;
 			break;
 		default:
-			Timer->CCR1 |= (u16)(ARR * Perc_Cycle);
+			Timer->CCR1 = (u16)(ARR * Perc_Cycle);
 			CCR = (float)Timer->CCR1;
 			break;
 	}

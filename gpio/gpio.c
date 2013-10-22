@@ -6,8 +6,8 @@ void Init_Ports_IO(void) {
 	(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_IOPCEN;
 }
 
-// Configurer Broche de Port en mode Output Push-Pull
-char Port_IO_Init_Output(GPIO_TypeDef * Port, u8 Broche) {
+// Configurer Broche de Port en mode Output General Push-Pull
+char Port_IO_Init_General_Output(GPIO_TypeDef * Port, u8 Broche) {
 	if(!Port || Broche > 15 || Broche < 0){
 		return -1;
 	}
@@ -24,6 +24,27 @@ char Port_IO_Init_Output(GPIO_TypeDef * Port, u8 Broche) {
 		Port->CRH &= ~(0x01 << ((Broche - 8) * 4 + 2));
 	}
 	
+	return 0;
+}
+
+// Configurer Broche de Port en mode Output Alternative Push-Pull
+char Port_IO_Init_Alternative_Output(GPIO_TypeDef * Port, u8 Broche) {
+	if(!Port || Broche > 15 || Broche < 0){
+		return -1;
+	}
+
+	if(Broche < 8) {
+		// Mode Output 10Hz
+		Port->CRL |= (0x01 << Broche * 4);
+		// CNF en Alternative Push-Pull
+		Port->CRL |= (0x10 << (Broche * 4 + 2));
+	} else {
+		// Mode Output 10Hz
+		Port->CRH |= (0x01 << (Broche - 8) * 4);
+		// CNF en Alternative Push-Pull
+		Port->CRH |= (0x10 << ((Broche - 8) * 4 + 2));
+	}
+
 	return 0;
 }
 

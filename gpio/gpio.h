@@ -1,8 +1,14 @@
 #ifndef _GPIO_H__
 #define _GPIO_H__
 
+// Validation des horloges des périphériques GPIO
+void Init_Ports_IO(void);
+
 // Configurer Broche de Port en mode Output Push-Pull
-char Port_IO_Init_Output( GPIO_TypeDef * Port, u8 Broche);
+char Port_IO_Init_General_Output(GPIO_TypeDef * Port, u8 Broche);
+
+// Configurer Broche de Port en mode Output Alternative Push-Pull
+char Port_IO_Init_Alternative_Output(GPIO_TypeDef * Port, u8 Broche);
 
 // Configurer Broche de Port en mode Input Floating
 char Port_IO_Init_Input( GPIO_TypeDef * Port, u8 Broche);
@@ -18,9 +24,5 @@ unsigned int Port_IO_Read(GPIO_TypeDef * Port, u8 Broche);
 
 // Inverser l'état du Port d'une Broche
 void Port_IO_Blink(GPIO_TypeDef * Port, u8 Broche);
-
-// Validation des horloges des périphériques GPIO
-void Init_Ports_IO(void);
-
 
 #endif /* _GPIO_H__ */

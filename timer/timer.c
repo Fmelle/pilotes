@@ -134,7 +134,7 @@ float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Cycle, u8 Channel) 
 			break;
 	}
 	
-	return (((float)Timer->PSC + 1.0) * (CCR + 1.0)) / frequence_timer * 1000000.0;
+	return (((float)Timer->PSC + 1.0) * (ARR - CCR + 1.0)) / frequence_timer * 1000000.0;
 }
 
 // Set Basic Timer Incremental Mode (TIM2, TIM3, TIM4)

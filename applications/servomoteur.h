@@ -2,17 +2,17 @@
 #define _SERVO_H__
 
 /**
-* Transformer une angle de vent pour le servomoteur en percentage
+* Transformer une angle de vent en percentage pour PWM
 * @param Angle de vent en flottant
-* @return Tribord
+* @return Perc en flottant
 **/
-float Calcule_Percentage_Angle_Servomoteur(float Angle_Vent);
+float Calcule_Percentage_Angle(float Angle_Vent);
 
 /**
 * Récupérer si le vent vient de tribord ou babord
 * @param Angle de vent flottant
-* @return Perc en flottant
+* @return Tribord boolean
 **/
-unsigned int Recuperer_direction_generale_du_vent(float Angle_Vent);
+unsigned int Recuperer_Direction_Generale_Du_Vent(float Angle_Vent);
 
 #endif /* _SERVO_H__ */

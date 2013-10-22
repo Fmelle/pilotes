@@ -1,12 +1,10 @@
 #include "stm32f10x.h"
 
-#include "stm32f10x.h"
-
 float Calcule_Percentage_Angle(float Angle_Vent) {
 	float Perc = 0.0, tribord = 0.0, babord = 0.0;
 	
 	if(Angle_Vent > 360.0 || Angle_Vent < 0.0) {
-		return -1;
+		return 1.00;
 	}
 	
 	/*

@@ -37,12 +37,14 @@ char Port_IO_Init_Alternative_Output(GPIO_TypeDef * Port, u8 Broche) {
 		// Mode Output 10Hz
 		Port->CRL |= (0x01 << Broche * 4);
 		// CNF en Alternative Push-Pull
-		Port->CRL |= (0x10 << (Broche * 4 + 2));
+		Port->CRL &= ~(0x01 << (Broche * 4 + 2));
+		Port->CRL |= (0x01 << (Broche * 4 + 3));
 	} else {
 		// Mode Output 10Hz
 		Port->CRH |= (0x01 << (Broche - 8) * 4);
 		// CNF en Alternative Push-Pull
-		Port->CRH |= (0x10 << ((Broche - 8) * 4 + 2));
+		Port->CRH &= ~(0x01 << ((Broche - 8) * 4 + 2));
+		Port->CRH |= (0x01 << ((Broche - 8) * 4 + 3));
 	}
 
 	return 0;

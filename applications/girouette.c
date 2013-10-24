@@ -1,7 +1,7 @@
 #include "stm32f10x.h"
-#include "../pilotes/clock/clock.h"
-#include "../pilotes/timer/timer.h"
-#include "../pilotes/gpio/gpio.h"
+#include "../clock/clock.h"
+#include "../timer/timer.h"
+#include "../gpio/gpio.h"
 #include "girouette.h"
 
 void Init_Girouette(void) {

@@ -34,6 +34,15 @@ void Init_Girouette(void) {
 	NVIC->IP[23]=4;
 }
 
+void Timer_Incremental_Start(TIM_TypeDef * Timer) {
+
+	// On attend de passer a la position reference
+	while (Port_IO_Read(GPIOA,5) == 0);
+		
+	//Le comptage demarre
+	Timer_Start();
+}
+
 float Return_Angle_Girouette(void) {
 	float angle_girouette;
 	angle_girouette = (float)TIM3->CNT;

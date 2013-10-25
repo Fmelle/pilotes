@@ -1,7 +1,6 @@
 #include "stm32f10x.h"
 #include "../clock/clock.h"
 #include "timer.h"
-#include "../gpio/gpio.h"
 
 // Timer Handler fonctions
 // For configuration of interruption handlers
@@ -162,14 +161,8 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
 }
 
 // Start incremental timer
-void Timer_Incremental_Start(TIM_TypeDef * Timer){
-
-	// On attend de passer a la position reference
-	while (Port_IO_Read(GPIOA,5) == 0);
-		
-	//Le comptage demarre
-	Timer->CR1 |= (0x01 << 0);	
-
+void Timer_Start(TIM_TypeDef * Timer) {
+	Timer->CR1 |= (0x01 << 0);
 }
 
 /////////////////						  /////////////////

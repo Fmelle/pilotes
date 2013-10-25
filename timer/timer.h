@@ -65,7 +65,7 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
 * timer considéré
 * 
 **/
-void Timer_Incremental_Start(TIM_TypeDef * Timer);
+void Timer_Start(TIM_TypeDef * Timer);
 
 /**
 * Configure la routine d'interruption de TIM1 en mode UPDATE (débordement de timer)

@@ -63,9 +63,17 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
 * Demarre un Timer Incremental
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
 * timer considéré
-* 
+* @return void
 **/
 void Timer_Start(TIM_TypeDef * Timer);
+
+/**
+* Demarre un Timer Avancé (TIM1 ou TIM8)
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
+* timer considéré
+* @return void
+**/
+void Init_PWM_Input(TIM_TypeDef * Timer);
 
 /**
 * Configure la routine d'interruption de TIM1 en mode UPDATE (débordement de timer)

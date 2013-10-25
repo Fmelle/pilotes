@@ -51,7 +51,7 @@ float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
 }
 
-// Set Advanced Timer PWM (TIM1, TIM8)
+// Set Advanced Timer PWM (TIM1, TIM8) Input
 float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	u32 frequence_timer = Get_Tim_Freq(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
@@ -163,6 +163,47 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
 // Start incremental timer
 void Timer_Start(TIM_TypeDef * Timer) {
 	Timer->CR1 |= (0x01 << 0);
+}
+
+// Set Advanced Timer PWM (TIM1, TIM8) Input
+void Init_PWM_Input(TIM_TypeDef * Timer) {
+	//For example, you can measure the period (in TIMx_CCR1 register) and the duty cycle (in
+	//TIMx_CCR2 register) of the PWM applied on TI1 using the following procedure (depending
+	//on CK_INT frequency and prescaler value):
+	
+	//● Select the active input for TIMx_CCR1: write the CC1S bits to 01 in the TIMx_CCMR1
+	//register (TI1 selected).
+	Timer->CCMR1|= TIM_CCMR1_CC1S_0 ;
+	Timer->CCMR1 &= ~(TIM_CCMR1_CC1S_1);
+  
+	//● Select the active polarity for TI1FP1 (used both for capture in TIMx_CCR1 and counter
+	// clear): write the CC1P bit to ‘0’  in the TIMx_CCER(active on rising edge).
+  	Timer->CCER &= ~(TIM_CCER_CC1P );
+	
+	//● Select the active input for TIMx_CCR2: write the CC2S bits to 10 in the TIMx_CCMR1
+	//register (TI1 selected).
+	
+	Timer->CCMR1|= TIM_CCMR1_CC2S_1 ;
+	Timer->CCMR1 &= ~(TIM_CCMR1_CC2S_0);
+	
+	//● Select the active polarity for TI1FP2 (used for capture in TIMx_CCR2): write the CC2P
+	//bit to ‘1’ in the TIMx_CCER(active on falling edge).
+
+  	Timer->CCER |= (TIM_CCER_CC2P );
+	
+	//● Select the valid trigger input: write the TS bits to 101 in the TIMx_SMCR register
+	//(TI1FP1 selected).
+ 	Timer->SMCR |= TIM_SMCR_TS_0 | TIM_SMCR_TS_2;
+ 	Timer->SMCR &= ~(TIM_SMCR_TS_1);
+ 
+	//● Configure the slave mode controller in reset mode: write the SMS bits to 100 in the
+	//TIMx_SMCR register.
+	Timer->SMCR |= TIM_SMCR_SMS_2;
+ 	Timer->SMCR &= ~(TIM_SMCR_SMS_1);
+ 	Timer->SMCR &= ~(TIM_SMCR_SMS_0);
+
+	//● Enable the captures: write the CC1E and CC2E bits to ‘1’ in the TIMx_CCER register
+	Timer->CCER |= TIM_CCER_CC2E | TIM_CCER_CC1E ;
 }
 
 /////////////////						  /////////////////

@@ -43,20 +43,19 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel);
 * Set durée du cycle
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
 * timer considéré
-* @param Duree_us Intervalle de temps exprimé en μs entre
-* deux débordements successifs
+* @param Perc_Arr Percentage de la période de Timer
+* souhaité pour le duree de sortie du PWM
 * @param Channel Le valeur du channel que on souhaite
 * configurer en PWM
 * @return Le durée véritable qui a été configurée
 **/
-float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Duree_us, u8 Channel);
+float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Arr, u8 Channel);
 
 /**
 * Configure un Timer en Incremental
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
 * timer considéré
-* @param ?????
-* @return ?????
+* @param Overflow Somme de incrementation qui déclenche une interruption
 **/
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
 
@@ -87,17 +86,5 @@ void TIM1_Activate_IT_UP(TIM_TypeDef * Timer, u8 Priority, void (*IT_function) (
 d'interruption
 **/
 void TIM2_Activate_IT(TIM_TypeDef * Timer, u8 Priority, void (*IT_function) (void));
-
-
-
-
-/**
-* Initialise un Timer Incremental
-* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
-* timer considéré
-* @param Overflow, jusqu'à combien le timer compte
-* 
-**/
-void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
 
 #endif /* _TIMER_H__ */

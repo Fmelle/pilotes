@@ -1,5 +1,5 @@
 #include "stm32f10x.h"
-#include "clock.h"
+#include "../clock/clock.h"
 #include "timer.h"
 #include "../gpio/gpio.h"
 
@@ -72,32 +72,47 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 		case 1:
 			Timer->CCR1 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
-			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 2:
 			Timer->CCR2 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
-			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 3:
 			Timer->CCR3 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
-			Timer->CCMR2 |= (0x110 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 4:
 			Timer->CCR4 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
-			Timer->CCMR2 |= (0x110 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		default:
 			Timer->CCR1 = (u16)(ARR * 0.9);
 			// Configuration en mode PWM Mode 1
-			Timer->CCMR1 |= (0x110 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
+			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 	}
 
 	// Enable PWM
 	Timer->CCER |= (0x01 << (Channel - 1) * 4);
+	
+	// Enable bit MOE si Timer 1
+	if (Timer == TIM1) {
+		Timer->BDTR |= (0x1 << 15);
+	}
 	
 	// Enable Timer
 	Timer->CR1 |= (0x01 << 0);
@@ -106,35 +121,35 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
 }
 
-float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Cycle, u8 Channel) {
+float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Arr, u8 Channel) {
 	float CCR, ARR = (float)Timer->ARR;
 	u32 frequence_timer = Get_Tim_Freq(Timer);
 
 	// Configuration de durée de cycle pour le PWM
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 = (u16)(ARR * Perc_Cycle);
+			Timer->CCR1 = (u16)(ARR * Perc_Arr);
 			CCR = (float)Timer->CCR1;
 			break;
 		case 2:
-			Timer->CCR2 = (u16)(ARR * Perc_Cycle);
+			Timer->CCR2 = (u16)(ARR * Perc_Arr);
 			CCR = (float)Timer->CCR2;
 			break;
 		case 3:
-			Timer->CCR3 = (u16)(ARR * Perc_Cycle);
+			Timer->CCR3 = (u16)(ARR * Perc_Arr);
 			CCR = (float)Timer->CCR3;
 			break;
 		case 4:
-			Timer->CCR4 = (u16)(ARR * Perc_Cycle);
+			Timer->CCR4 = (u16)(ARR * Perc_Arr);
 			CCR = (float)Timer->CCR4;
 			break;
 		default:
-			Timer->CCR1 = (u16)(ARR * Perc_Cycle);
+			Timer->CCR1 = (u16)(ARR * Perc_Arr);
 			CCR = (float)Timer->CCR1;
 			break;
 	}
 	
-	return (((float)Timer->PSC + 1.0) * (ARR - CCR + 1.0)) / frequence_timer * 1000000.0;
+	return (((float)Timer->PSC + 1.0) * (CCR + 1.0)) / frequence_timer * 1000000.0;
 }
 
 // Set Basic Timer Incremental Mode (TIM2, TIM3, TIM4)

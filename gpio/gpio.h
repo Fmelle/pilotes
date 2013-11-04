@@ -11,7 +11,13 @@ char Port_IO_Init_General_Output(GPIO_TypeDef * Port, u8 Broche);
 char Port_IO_Init_Alternative_Output(GPIO_TypeDef * Port, u8 Broche);
 
 // Configurer Broche de Port en mode Input Floating
-char Port_IO_Init_Input( GPIO_TypeDef * Port, u8 Broche);
+char Port_IO_Init_Input(GPIO_TypeDef * Port, u8 Broche);
+
+// Configurer Broche de Port en mode Input Analog
+char Port_IO_Init_Input_Analog(GPIO_TypeDef * Port, u8 Broche);
+
+// Configurer Broche de Port en mode Input Pull-up
+char Port_IO_Init_Input_Pullup(GPIO_TypeDef * Port, u8 Broche);
 
 // Mettre 1 dans la sortie du Port d'une Broche
 void Port_IO_Set(GPIO_TypeDef * Port, u8 Broche);

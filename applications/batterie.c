@@ -1,6 +1,6 @@
 #include "stm32f10x.h"
 #include "../gpio/gpio.h"
-#include "../adc/adc.h"
+#include "../ADC/adc.h"
 #include "batterie.h"
 
 void Init_Batterie(void) {

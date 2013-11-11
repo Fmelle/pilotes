@@ -2,16 +2,24 @@
 #define _ACCELEROMETRE_H__
 
 /**
-* 
-* @param 
-* @return 
+* Init accelerometre
+* @param void
+* @return void
 **/
+void Init_Accelerometre(void);
 
 /**
-* 
-* @param 
-* 
+* Get X direction value
+* @param void
+* @return void
 **/
+int Get_Valeur_X(void);
 
+/**
+* Get Y direction value
+* @param void
+* @return void
+**/
+int Get_Valeur_Y(void);
 
 #endif /* _ACCELEROMETRE_H__ */

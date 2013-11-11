@@ -21,6 +21,7 @@ int Get_Batterie_Charge(void) {
 	return (ADC_Single_Conv_Get_Value(ADC1));
 }
 
+// Fonction a tourner tous les cycles pour regarder si le batterie tient ou pas avec FLAG
 u8 Check_Batterie_Below_Level(float Seuil_Batterie, float Tension_Alim, float Pont_Div, float Resolution_ADC) {
 	// init variables
 	u8 Flag = 0;

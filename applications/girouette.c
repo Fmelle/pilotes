@@ -40,7 +40,8 @@ void Timer_Incremental_Start(TIM_TypeDef * Timer) {
 	while (Port_IO_Read(GPIOA,5) == 0);
 		
 	//Le comptage demarre
-	Timer_Start();
+	Timer_Start(Timer);
+	
 }
 
 float Return_Angle_Girouette(void) {

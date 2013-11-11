@@ -3,7 +3,7 @@
 #include "../gpio/gpio.h"
 
 //Initialise l'emmetteur
-void Init_Emmetteur (void) {
+void Init_Emetteur (void) {
 	
 	
 //on initialise l'USART avec un baud de 9600 (cf cahier des charges)	

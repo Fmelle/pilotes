@@ -42,6 +42,6 @@ void Start_ADC_Single_Conv(ADC_TypeDef * ADC, u8 Channel);
 * ADC considéré
 * @return void
 **/
-int ADC_Single_Conv_Get_Value(ADC_TypeDef * ADC)
+int ADC_Single_Conv_Get_Value(ADC_TypeDef * ADC);
 
 #endif /* _ADC_H__ */

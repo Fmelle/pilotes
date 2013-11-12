@@ -4,7 +4,7 @@
 #include "../clock/clock.h"
 
 //Initialisation de l'USART en transmission
-void Init_Transm_USART (USART_TypeDef *USART, int Baud){	
+void Init_Transm_USART (USART_TypeDef *USART, int Baud) {
 	
 	
 //On definit les variables qui vont servir au calcul
@@ -48,8 +48,6 @@ void Init_Transm_USART (USART_TypeDef *USART, int Baud){
 		frequence_PCLK = CLOCK_GetPCLK1();
 	}
 		
-	
-	
 	// Enable the USART by writing the UE bit in USART_CR1 register to 1 (bit 13)
 	USART->CR1 |= (1 << 13);
 
@@ -84,18 +82,14 @@ void Init_Transm_USART (USART_TypeDef *USART, int Baud){
 
 	//Clear TC bit (transmission non fini)
 	USART->SR &= ~(1 << 6);
-	
-	
-	
-	
 }
 
 //Fonction qui envoie un caractere via l'USART
 void Transm_USART(USART_TypeDef *USART, char *caractere){
-	
-//On active la transmission en mettant el bit TE de USART_CR1 a 1
-USART->CR1 |= (1 << 3);
-	
-//Ecriture du caractere a envoyer dans USART_DR
-USART->DR= (*caractere);	
+		
+	//On active la transmission en mettant el bit TE de USART_CR1 a 1
+	USART->CR1 |= (1 << 3);
+		
+	//Ecriture du caractere a envoyer dans USART_DR
+	USART->DR= (*caractere);	
 }

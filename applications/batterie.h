@@ -34,4 +34,13 @@ int Get_Batterie_Charge(void);
 **/
 u8 Check_Batterie_Below_Level(float Seuil_Batterie, float Tension_Alim, float Pont_Div, float Resolution_ADC);
 
+/**
+* Regarder alerte batterie voilier spécifique
+* @param void
+* @return 
+* - Flag = 1 si le tension est au-dessous de limite critique.
+* - Flag = 0 sinon.
+**/
+u8 Check_Boat_Batterie_Below_80_percent(void);
+
 #endif /* _BATTERIE_H__ */

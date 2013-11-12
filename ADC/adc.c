@@ -1,5 +1,5 @@
 #include "stm32f10x.h"
-#include "clock.h"
+#include "../clock/clock.h"
 #include "adc.h"
 
 void Init_ADC_Converter(ADC_TypeDef * ADC) {
@@ -16,6 +16,7 @@ void Init_ADC_Converter(ADC_TypeDef * ADC) {
 		// ADC -> ON
 		ADC2->CR2 |= (0x01 << 0);
 	}
+	
 }
 
 void Set_Cycles_ADC(ADC_TypeDef * ADC, float nb_cycles) {

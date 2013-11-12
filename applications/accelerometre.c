@@ -23,4 +23,6 @@ int Get_Valeur_X(void) {
 int Get_Valeur_Y(void) {
 	// Start conversion
 	Start_ADC_Single_Conv(ADC2, 11);
+	// Return converted value of direction Y
+	return ADC_Single_Conv_Get_Value(ADC2);
 }

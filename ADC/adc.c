@@ -201,7 +201,7 @@ void Start_ADC_Single_Conv(ADC_TypeDef * ADC, u8 Channel) {
 	ADC->SQR3 &= ~(0x01 << 0);
 	
 	// 1 Conversion
-	ADC->SQR1 &= ~(0x01 << 20);
+	ADC->SQR1 &= ~(0xF << 20);
 	// Channel to read
 	ADC->SQR3 |= Channel;
 

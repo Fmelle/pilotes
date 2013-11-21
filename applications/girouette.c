@@ -14,11 +14,9 @@ void Init_Girouette(void) {
 	Port_IO_Init_Input(GPIOA,6);
 	Port_IO_Init_Input(GPIOA,7);
 	
-	//configuration du timer incremental
+	// Configuration du timer incremental
 	
-	Timer_Incremental_Init(TIM3,720);//360 périodes sur 1 tour sur chaque voie
-	
-	Timer_Incremental_Start(TIM3);
+	Timer_Incremental_Init(TIM3,720); //360 périodes sur 1 tour sur chaque voie
 	
 	//configuration de l'IT sur le PA5
 	(EXTI->IMR) = 0x01<<5 ;
@@ -32,6 +30,9 @@ void Init_Girouette(void) {
 	
 	// Priorité it NVIC
 	NVIC->IP[23]=4;
+	
+	// Start
+	Timer_Incremental_Start(TIM3);
 }
 
 void Timer_Incremental_Start(TIM_TypeDef * Timer) {
@@ -41,7 +42,6 @@ void Timer_Incremental_Start(TIM_TypeDef * Timer) {
 		
 	//Le comptage demarre
 	Timer_Start(Timer);
-	
 }
 
 float Return_Angle_Girouette(void) {

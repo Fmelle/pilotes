@@ -66,38 +66,38 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	Timer->ARR = (u16)(rapport_freq / (PSC + 1.0));
 	float ARR = (float)Timer->ARR;
 	
-	// Configuration de durée de cycle pour le PWM (init 100 % = 1 / 10 Periode de Timer)
+	// Configuration de durée de sortie pour le PWM (init 100 % = 1 / 10 Periode de Timer)
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 = (u16)(ARR * 0.9);
+			Timer->CCR1 = (u16)(ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 2:
-			Timer->CCR2 = (u16)(ARR * 0.9);
+			Timer->CCR2 = (u16)(ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 3:
-			Timer->CCR3 = (u16)(ARR * 0.9);
+			Timer->CCR3 = (u16)(ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 4:
-			Timer->CCR4 = (u16)(ARR * 0.9);
+			Timer->CCR4 = (u16)(ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		default:
-			Timer->CCR1 = (u16)(ARR * 0.9);
+			Timer->CCR1 = (u16)(ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
@@ -173,12 +173,12 @@ void Init_PWM_Input(TIM_TypeDef * Timer) {
 	
 	//● Select the active input for TIMx_CCR1: write the CC1S bits to 01 in the TIMx_CCMR1
 	//register (TI1 selected).
-	Timer->CCMR1|= TIM_CCMR1_CC1S_0 ;
+	Timer->CCMR1 |= TIM_CCMR1_CC1S_0 ;
 	Timer->CCMR1 &= ~(TIM_CCMR1_CC1S_1);
   
 	//● Select the active polarity for TI1FP1 (used both for capture in TIMx_CCR1 and counter
 	// clear): write the CC1P bit to ‘0’  in the TIMx_CCER(active on rising edge).
-  	Timer->CCER &= ~(TIM_CCER_CC1P );
+  	Timer->CCER &= ~(TIM_CCER_CC1P);
 	
 	//● Select the active input for TIMx_CCR2: write the CC2S bits to 10 in the TIMx_CCMR1
 	//register (TI1 selected).

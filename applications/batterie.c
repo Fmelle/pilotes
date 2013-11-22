@@ -46,5 +46,5 @@ u8 Check_Boat_Batterie_Below_80_percent(void) {
 	const float pont_div = 1./13.;
 	const float resolution_ADC = 4096./3.3;
 	// Return actual batterie alert value
-	return Check_Batterie_Below_Level(Seuil_Batterie, alim, pont_div, resolution_ADC);
+	return (Check_Batterie_Below_Level(Seuil_Batterie, alim, pont_div, resolution_ADC));
 }

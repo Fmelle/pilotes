@@ -29,10 +29,10 @@ float Systick_Period(float Duree_us)
 
 // Retourne la duree calculée, 0 si impossible
 {
-vu32 Nb_Reload;
-float Nb_Reload_Float; 
-float Duree_reelle_us;
-float Freq_In;
+	vu32 Nb_Reload;
+	float Nb_Reload_Float; 
+	float Duree_reelle_us;
+	float Freq_In;
 
 	Freq_In = (float) CLOCK_GetHCLK();
 

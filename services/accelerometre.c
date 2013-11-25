@@ -38,7 +38,7 @@ u32 Calcul_Accelerometre_Offset(void) {
 	// - 100 parce que c'est la valeur delta des variations de valeurs
 	// - L'axe X represente l'OFFSET de l'accéléromètre du position initiale
 	// 	 --> Au position initiale: l'axe X est égale à 0
-	while(i < 100) {
+	while (i < 100) {
 		ACCUM += Get_Valeur_X();
 		i++;
 	}

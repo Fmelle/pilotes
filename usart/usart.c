@@ -7,44 +7,44 @@
 void Init_Transm_USART (USART_TypeDef *USART, int Baud) {
 	
 	
-//On definit les variables qui vont servir au calcul
+	// On definit les variables qui vont servir au calcul
 	
 	float Usart_DIV=0;
 	unsigned int USARTDIV_Mantisse=0;
 	
 	u32 frequence_PCLK=0;
 	
-// Activation des horloges de peripheriques USART
+	// Activation des horloges de peripheriques USART
 	if (USART == USART1)
 	{
 		(RCC->APB2ENR)=(RCC->APB2ENR) | RCC_APB2ENR_USART1EN;
 		
 		
-		// configuration de USART1_TX (broche PA9)
+		// Configuration de USART1_TX (broche PA9)
 		Port_IO_Init_Alternative_Output(GPIOA,9);
 		
 		
-		// lecture de la frequence de PCLK2
+		// Lecture de la frequence de PCLK2
 		frequence_PCLK = CLOCK_GetPCLK2();		
 	}
 	if (USART == USART2)
 	{
 		(RCC->APB1ENR)=(RCC->APB1ENR) | RCC_APB1ENR_USART2EN;
 		
-		// configuration de USART2_TX (broche PA2)
+		// Configuration de USART2_TX (broche PA2)
 		Port_IO_Init_Alternative_Output(GPIOA,2);
 		
-		// lecture de la frequence de PCLK2
+		// Lecture de la frequence de PCLK2
 		frequence_PCLK = CLOCK_GetPCLK1();
 	}
 	if (USART == USART3)
 	{
 		(RCC->APB1ENR)=(RCC->APB1ENR) | RCC_APB1ENR_USART3EN;
 		
-		// configuration de USART2_TX (broche PB10)
+		// Configuration de USART2_TX (broche PB10)
 		Port_IO_Init_Alternative_Output(GPIOB,10);
 		
-		// lecture de la frequence de PCLK2
+		// Lecture de la frequence de PCLK2
 		frequence_PCLK = CLOCK_GetPCLK1();
 	}
 		
@@ -63,24 +63,24 @@ void Init_Transm_USART (USART_TypeDef *USART, int Baud) {
 	// horloge PCLK2 pour USART1 (72 MHz max)
 	// horloge PCLK1 pour USART2,3,4 (36 MHz max)
 	
-	//Lecture de USART_DIV
+	// Lecture de USART_DIV
 	Usart_DIV = (float) frequence_PCLK/(16*Baud);
 	
-	//Recuperation de la Mantisse 
+	// Recuperation de la Mantisse 
 	USARTDIV_Mantisse = (int) Usart_DIV;
 	
-	//Ecriture de la mantisse dans le registre BRR bits [4:15]
+	// Ecriture de la mantisse dans le registre BRR bits [4:15]
 	USART->BRR = (USARTDIV_Mantisse << 4);
 	
-	//Calcul de la fraction dans la meme variable
+	// Calcul de la fraction dans la meme variable
 	Usart_DIV = Usart_DIV - (float)USARTDIV_Mantisse;
 	Usart_DIV *= 16;
 	
-	//Ecriture de la fraction dans le registre BRR
+	// Ecriture de la fraction dans le registre BRR
 	USART->BRR |= ((u8)Usart_DIV);
 
 
-	//Clear TC bit (transmission non fini)
+	// Clear TC bit (transmission non fini)
 	USART->SR &= ~(1 << 6);
 }
 

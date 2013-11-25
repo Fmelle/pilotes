@@ -6,7 +6,7 @@
 //____ registres de périphériques du stm_32
 #include "stm32f10x.h"
 #include "../clock/clock.h"
-#include "../timer_systick/Timer_Systick.h"
+#include "../timer_systick/timer_systick.h"
 #include "../Applications/commandevoiles.h"
 #include "../Applications/commandeplateau.h"
 #include "../Applications/surveillealerte.h"
@@ -32,16 +32,16 @@ int main (void) {
 	
 	// Configure clocks
 	CLOCK_Configure();
-	// Init surveille bateau
+	// Init surveille du bateau
 	Init_Surveille_Alerte();
-	// Init commande voiles
+	// Init commande des voiles
 	Init_Commande_Voiles();
-	// Init commande plateau
+	// Init commande du plateau
 	Init_Commande_Plateau();
 
-	// SYSTICK
+	// SYSTICK Init and config (Period: 100ms ; Priority: 2)
 	Duree_Systick = Duree Systick_Period(100000);
-	Systick_Prio_IT(5, Cycle);
+	Systick_Prio_IT(2, Cycle);
 	SysTick_On;
 	SysTick_Enable_IT;
 

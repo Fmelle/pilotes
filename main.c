@@ -16,12 +16,26 @@
 #include "../APP/commandevoiles.h"
 #include "../APP/commandeplateau.h"
 #include "../APP/surveillealerte.h"
+#include "../timer_systick/Timer_Systick.h"
 
-int main (void)
-{
-	// Vars globales
-	u8 FlagBatterie = 0;
-	u8 FlagAccelero = 0;
+// Set Systick handler
+void Cycle (void) {
+	u8 FlagAccelero = Controle_Inclinaison_Bateau();
+	u8 FlagBatterie = Controle_Batterie_Faible();
+	
+	// Surveille commande voiles
+	if(FlagAccelero == 0) {
+		Update_Commande_Voiles();
+	} else {
+		Close_Voiles();
+	}
+	
+	// Surveille commande plateau
+	Update_Commande_Plateau();
+}
+
+int main (void) {
+	float Duree_Systick;
 	
 	// Init periphs
 	CLOCK_Configure();
@@ -34,15 +48,12 @@ int main (void)
 	Init_Commande_Voiles();
 	// Init commande plateau
 	Init_Commande_Plateau();
-	
-	while(1) {
-		FlagBatterie = Controle_Inclinaison_Bateau();
-		FlagAccelero = Controle_Batterie_Faible();
-		// Surveille commande voiles
-		Update_Commande_Voiles();
-		// Surveille commande plateau
-		Update_Commande_Plateau();
-	}
+
+	// SYSTICK
+	Duree_Systick = Duree Systick_Period(100000);
+	Systick_Prio_IT(5, Cycle);
+	SysTick_On;
+	SysTick_Enable_IT;
 
 	return 0;
 }

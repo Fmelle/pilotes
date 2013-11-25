@@ -67,37 +67,38 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	float ARR = (float)Timer->ARR;
 	
 	// Configuration de durée de sortie pour le PWM (init 100 % = 1 / 10 Periode de Timer)
+	// APPLICATION: Init en bordage des voiles
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 = (u16)(ARR * 0.05);
+			Timer->CCR1 = (u16)(ARR * 0.1);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 2:
-			Timer->CCR2 = (u16)(ARR * 0.05);
+			Timer->CCR2 = (u16)(ARR * 0.1);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 3:
-			Timer->CCR3 = (u16)(ARR * 0.05);
+			Timer->CCR3 = (u16)(ARR * 0.1);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 4:
-			Timer->CCR4 = (u16)(ARR * 0.05);
+			Timer->CCR4 = (u16)(ARR * 0.1);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		default:
-			Timer->CCR1 = (u16)(ARR * 0.05);
+			Timer->CCR1 = (u16)(ARR * 0.1);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));

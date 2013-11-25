@@ -6,7 +6,7 @@
 #include "../applications/girouette.h"
 #include "commandevoiles.h"
 
-//Fonction qui initialise toutes les fonctions necessaire a la commande des voiles
+// Fonction qui initialise toutes les fonctions necessaire a la commande des voiles
 void Init_Commande_Voiles(void) {
 	float Period_Set;
 	//Initialisation girouette
@@ -22,4 +22,9 @@ void Update_Commande_Voiles(void) {
 	//Lancement du programme de commande de voile
 	Perc_Cycle = Calcule_Percentage_Angle(Return_Angle_Girouette());
 	Period_PWM = Timer_PWM_Set_Duration(TIM1, Perc_Cycle, 1);
+}
+
+// Fonction qui nous permet depuis le couche main de border les voiles
+void Close_Voiles(void) {
+	Period_PWM = Timer_PWM_Set_Duration(TIM1, 0.10, 1);
 }

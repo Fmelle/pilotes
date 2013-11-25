@@ -46,7 +46,12 @@ void Systick_Prio_IT(char Prio,void (*Systick_function) (void));
 float Systick_Period(float Duree_us);
 
 
+//========================================================================================
+// Define Systick Handler
+// for cycled execution in main function
+//=======================================================================================
 
+void Cycle(void);
 
 // Exemple de code :
 // Gestion du Systick, ici, configuration en IT périodique 

@@ -1,4 +1,5 @@
 #include "stm32f10x.h"
+#include "servomoteur.h"
 
 float Calcule_Percentage_Angle(float Angle_Vent) {
 	float Perc = 0.95;

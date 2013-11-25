@@ -2,8 +2,8 @@
 #include "../clock/clock.h"
 #include "../timer/timer.h"
 #include "../gpio/gpio.h"
-#include "../applications/servomoteur.h"
-#include "../applications/girouette.h"
+#include "../services/servomoteur.h"
+#include "../services/girouette.h"
 #include "commandevoiles.h"
 
 // Fonction qui initialise toutes les fonctions necessaire a la commande des voiles

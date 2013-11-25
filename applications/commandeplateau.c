@@ -1,8 +1,5 @@
 #include "stm32f10x.h"
-#include "../clock/clock.h"
-#include "../timer/timer.h"
-#include "../gpio/gpio.h"
-#include "../applications/moteur_cc.h"
+#include "../services/moteur_cc.h"
 #include "commandeplateau.h"
 
 void Init_Commande_Plateau(void) {
@@ -12,9 +9,9 @@ void Init_Commande_Plateau(void) {
 
 void Update_Commande_Plateau(void) {
 	// Surveille commande Moteur CC
-	float Duty, Period_PWM;
+	float Duty;
 	// Recuperer commande
 	Duty = Duty_Cycle_Moteur_CC();
 	// Set commande
-	Period_PWM = Timer_PWM_Set_Duration(TIM2, Duty, 2);
+	Set_Commande_Moteur_CC(Duty);
 }

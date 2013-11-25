@@ -10,13 +10,6 @@
 u32 Get_Tim_Freq(TIM_TypeDef * Timer);
 
 /**
-* Activer Timers 1, 2, 3, 4
-* @param Void
-* @return Void
-**/
-void Init_Timers_1234(void);
-
-/**
 * Configure un Timer Simple
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
 * timer considéré

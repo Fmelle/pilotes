@@ -6,17 +6,10 @@
 //____ registres de périphériques du stm_32
 #include "stm32f10x.h"
 #include "../clock/clock.h"
-#include "../timer/timer.h"
-#include "../gpio/gpio.h"
-#include "../adc/adc.h"
-#include "../applications/servomoteur.h"
-#include "../applications/girouette.h"
-#include "../applications/accelerometre.h"
-#include "../applications/batterie.h"
-#include "../APP/commandevoiles.h"
-#include "../APP/commandeplateau.h"
-#include "../APP/surveillealerte.h"
 #include "../timer_systick/Timer_Systick.h"
+#include "../Applications/commandevoiles.h"
+#include "../Applications/commandeplateau.h"
+#include "../Applications/surveillealerte.h"
 
 // Set Systick handler
 void Cycle (void) {
@@ -37,11 +30,8 @@ void Cycle (void) {
 int main (void) {
 	float Duree_Systick;
 	
-	// Init periphs
+	// Configure clocks
 	CLOCK_Configure();
-	Init_Ports_IO();
-	Init_Timers_1234();
-	
 	// Init surveille bateau
 	Init_Surveille_Alerte();
 	// Init commande voiles

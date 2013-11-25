@@ -1,9 +1,6 @@
 #ifndef _GPIO_H__
 #define _GPIO_H__
 
-// Validation des horloges des périphériques GPIO
-void Init_Ports_IO(void);
-
 // Configurer Broche de Port en mode Output Push-Pull
 char Port_IO_Init_General_Output(GPIO_TypeDef * Port, u8 Broche);
 

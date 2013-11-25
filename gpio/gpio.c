@@ -1,15 +1,28 @@
 #include "stm32f10x.h"
 #include "gpio.h"
 
-// Validation des horloges des périphériques GPIO
-void Init_Ports_IO(void) {
-	(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_IOPBEN | RCC_APB2ENR_IOPCEN | RCC_APB2ENR_IOPDEN;
-}
-
 // Configurer Broche de Port en mode Output General Push-Pull
 char Port_IO_Init_General_Output(GPIO_TypeDef * Port, u8 Broche) {
 	if(!Port || Broche > 15 || Broche < 0){
 		return -1;
+	}
+
+	// Validation des horloges des périphériques GPIO
+	switch (Port) {
+		case GPIOA:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+			break;
+		case GPIOB:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+			break;
+		case GPIOC:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+			break;
+		case GPIOD:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+			break;
+		default:
+			return -1;
 	}
 	
 	if (Broche < 8) {
@@ -31,6 +44,24 @@ char Port_IO_Init_General_Output(GPIO_TypeDef * Port, u8 Broche) {
 char Port_IO_Init_Alternative_Output(GPIO_TypeDef * Port, u8 Broche) {
 	if(!Port || Broche > 15 || Broche < 0){
 		return -1;
+	}
+
+	// Validation des horloges des périphériques GPIO
+	switch (Port) {
+		case GPIOA:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+			break;
+		case GPIOB:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+			break;
+		case GPIOC:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+			break;
+		case GPIOD:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+			break;
+		default:
+			return -1;
 	}
 
 	if(Broche < 8) {
@@ -55,6 +86,24 @@ char Port_IO_Init_Input(GPIO_TypeDef * Port, u8 Broche) {
 	if(!Port || Broche > 15 || Broche < 0) {
 		return -1;
 	}
+
+	// Validation des horloges des périphériques GPIO
+	switch (Port) {
+		case GPIOA:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+			break;
+		case GPIOB:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+			break;
+		case GPIOC:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+			break;
+		case GPIOD:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+			break;
+		default:
+			return -1;
+	}
 	
 	if (Broche < 8) {
 		Port->CRL |= (0x01 << (Broche * 4 + 2));
@@ -71,6 +120,24 @@ char Port_IO_Init_Input_Analog(GPIO_TypeDef * Port, u8 Broche) {
 		return -1;
 	}
 
+	// Validation des horloges des périphériques GPIO
+	switch (Port) {
+		case GPIOA:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+			break;
+		case GPIOB:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+			break;
+		case GPIOC:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+			break;
+		case GPIOD:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+			break;
+		default:
+			return -1;
+	}
+
 	if (Broche < 8) {
 		Port->CRL &= ~(0x01 << (Broche * 4));
 	} else {
@@ -84,6 +151,24 @@ char Port_IO_Init_Input_Analog(GPIO_TypeDef * Port, u8 Broche) {
 char Port_IO_Init_Input_Pullup(GPIO_TypeDef * Port, u8 Broche) {
 	if(!Port || Broche > 15 || Broche < 0) {
 		return -1;
+	}
+
+	// Validation des horloges des périphériques GPIO
+	switch (Port) {
+		case GPIOA:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+			break;
+		case GPIOB:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+			break;
+		case GPIOC:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+			break;
+		case GPIOD:
+			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+			break;
+		default:
+			return -1;
 	}
 
 	if (Broche < 8) {

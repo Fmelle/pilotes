@@ -1,7 +1,7 @@
 #include "stm32f10x.h"
-#include "../applications/accelerometre.h"
-#include "../applications/emetteur.h"
-#include "../applications/batterie.h"
+#include "../services/accelerometre.h"
+#include "../services/emetteur.h"
+#include "../services/batterie.h"
 #include "surveillealerte.h"
 
 // Offset accéléro globale constant à calculer

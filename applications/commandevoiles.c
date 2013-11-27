@@ -25,6 +25,7 @@ void Update_Commande_Voiles(void) {
 }
 
 // Fonction qui nous permet depuis le couche main de border les voiles
-void Close_Voiles(void) {
-	Period_PWM = Timer_PWM_Set_Duration(TIM1, 0.10, 1);
+void Release_Voiles(void) {
+	float Period_PWM; 
+	Period_PWM = Timer_PWM_Set_Duration(TIM1, 0.05, 1);
 }

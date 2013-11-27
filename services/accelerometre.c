@@ -49,7 +49,7 @@ u32 Calcul_Accelerometre_Offset(void) {
 u8 Check_Angle_Tangage(u32 OFFSET) {
 	// Valeurs lit par l'ADC de l'accelerometre
 	int Valeur_X = 0;
-	int Valeur_Y = 0;	
+	int Valeur_Y = 0;
 	// Flag pour inclinaison du bateau de > 45 degres
 	// Init : 0 (< 45 degrees)
 	u8 Flag_45 = 0;
@@ -65,12 +65,12 @@ u8 Check_Angle_Tangage(u32 OFFSET) {
 	// La valeur en X peut prendre des valeurs négatifs:
 	// Valeur absolue pour regarder les deux sens d'inclinaison
 	if(Valeur_X < 0) {
-		Valeur_X = -Valeur_X;
+		Valeur_X = 0 - Valeur_X;
 	}
 
 	// Si l'angle roulis dépasse 45° on lâche les voiles
-	// Marge de 70
-	if((Valeur_X + 70) > Valeur_Y){
+	// Marge de 100
+	if((Valeur_X + 100) > Valeur_Y){
 		Flag_45 = 1;
 	}
 	
@@ -78,8 +78,7 @@ u8 Check_Angle_Tangage(u32 OFFSET) {
 }
 
 
-int Return_Angle_Accelerometre(void) {
-	float Ygo = 2300.0, Ymax = 1760.0 ;
+int Return_Angle_Accelerometre(float Ygo, float Ymax) {
 	float Y = 0.0;
 	int angle=0;
 	

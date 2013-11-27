@@ -8,6 +8,10 @@ void Init_Emetteur (void) {
 	Init_Transm_USART(USART1, 9600);
 	//On active le port A11 pour la sortie de l'emmeteur
 	Port_IO_Init_General_Output(GPIOA,11);
+	
+	// Mettez le emetteur en transmission en permanence
+	Port_IO_Set(GPIOA,11);
+	// pour éviter d'observer l'effet du bruit
 }
 
 //Fonction pour envoyer une chaine de caractere
@@ -18,15 +22,18 @@ void Send_Chaine(char * Chaine) {
 	Caractere=Chaine;
 	
 	// Mise a 1 de TX pour demarrer la transmission
-	Port_IO_Set(GPIOA,11);
+	// Port_IO_Set(GPIOA,11); --> voir remarque
 	
 	while ((*Caractere)!='\0') {
 		Transm_USART(USART1,Caractere);	
-		// Pour pas ramplir le buffer du recepteur (connecte a l'ordinateur) 
-		for (i=0;i<100000;i++);
+		// Pour pas remplir le buffer du recepteur (Connecté à l'ordinateur)
+		for (i=0 ; i<100000 ; i++);
 		Caractere++;
 	}
 	
 	// Mise a 0 de TX pour terminer la transmission
-	Port_IO_Reset(GPIOA,11);
+	// Port_IO_Reset(GPIOA,11); --> voir remarque
+	
+	// Remarque:
+	// Tant que le programme tourne ; on reste en transmission
 }

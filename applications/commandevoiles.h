@@ -8,6 +8,6 @@ void Init_Commande_Voiles(void);
 void Update_Commande_Voiles(void);
 
 // Fonction qui nous permet depuis le couche main de border les voiles
-void Close_Voiles(void);
+void Release_Voiles(void);
 
 #endif /* _COMMANDE_VOILES_H__ */

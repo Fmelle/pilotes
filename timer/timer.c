@@ -28,21 +28,19 @@ float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
 	float Duree_hz = 1000000.0 / Duree_us;
 	
 	// Validation des horloges des périphériques Timer
-	switch (Timer) {
-		case TIM1:
-			(RCC->APB2ENR)|= RCC_APB2ENR_TIM1EN;
-			break;
-		case TIM2:
-			(RCC->APB1ENR)|= RCC_APB1ENR_TIM2EN;
-			break;
-		case TIM3:
-			(RCC->APB1ENR)|= RCC_APB1ENR_TIM3EN;
-			break;
-		case TIM4:
-			(RCC->APB1ENR)|= RCC_APB1ENR_TIM4EN;
-			break;
-		default:
-			return -1.0;
+	if(Timer == TIM1) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_TIM1EN;
+	} else
+	if(Timer == TIM2) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM2EN;
+	} else
+	if(Timer == TIM3) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM3EN;
+	} else
+	if(Timer == TIM4) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM4EN;
+	} else {
+		return -1.0;
 	}
 
 	// Rapport Frequence Timer / Frequence Choisi
@@ -67,21 +65,19 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	float Duree_hz = 1000000.0 / Duree_us;
 	
 	// Validation des horloges des périphériques Timer
-	switch (Timer) {
-		case TIM1:
-			(RCC->APB2ENR)|= RCC_APB2ENR_TIM1EN;
-			break;
-		case TIM2:
-			(RCC->APB1ENR)|= RCC_APB1ENR_TIM2EN;
-			break;
-		case TIM3:
-			(RCC->APB1ENR)|= RCC_APB1ENR_TIM3EN;
-			break;
-		case TIM4:
-			(RCC->APB1ENR)|= RCC_APB1ENR_TIM4EN;
-			break;
-		default:
-			return -1.0;
+	if(Timer == TIM1) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_TIM1EN;
+	} else
+	if(Timer == TIM2) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM2EN;
+	} else
+	if(Timer == TIM3) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM3EN;
+	} else
+	if(Timer == TIM4) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM4EN;
+	} else {
+		return -1.0;
 	}
 
 	// Rapport Frequence Timer / Frequence Choisi
@@ -98,35 +94,35 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	// APPLICATION: Init en bordage des voiles
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 = (u16)(ARR * 0.1);
+			Timer->CCR1 = (u16)((float)ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 2:
-			Timer->CCR2 = (u16)(ARR * 0.1);
+			Timer->CCR2 = (u16)((float)ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 3:
-			Timer->CCR3 = (u16)(ARR * 0.1);
+			Timer->CCR3 = (u16)((float)ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 4:
-			Timer->CCR4 = (u16)(ARR * 0.1);
+			Timer->CCR4 = (u16)((float)ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		default:
-			Timer->CCR1 = (u16)(ARR * 0.1);
+			Timer->CCR1 = (u16)((float)ARR * 0.05);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
@@ -156,23 +152,23 @@ float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Arr, u8 Channel) {
 	// Configuration de durée de cycle pour le PWM
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 = (u16)(ARR * Perc_Arr);
+			Timer->CCR1 = (u16)((float)ARR * Perc_Arr);
 			CCR = (float)Timer->CCR1;
 			break;
 		case 2:
-			Timer->CCR2 = (u16)(ARR * Perc_Arr);
+			Timer->CCR2 = (u16)((float)ARR * Perc_Arr);
 			CCR = (float)Timer->CCR2;
 			break;
 		case 3:
-			Timer->CCR3 = (u16)(ARR * Perc_Arr);
+			Timer->CCR3 = (u16)((float)ARR * Perc_Arr);
 			CCR = (float)Timer->CCR3;
 			break;
 		case 4:
-			Timer->CCR4 = (u16)(ARR * Perc_Arr);
+			Timer->CCR4 = (u16)((float)ARR * Perc_Arr);
 			CCR = (float)Timer->CCR4;
 			break;
 		default:
-			Timer->CCR1 = (u16)(ARR * Perc_Arr);
+			Timer->CCR1 = (u16)((float)ARR * Perc_Arr);
 			CCR = (float)Timer->CCR1;
 			break;
 	}
@@ -182,11 +178,26 @@ float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Arr, u8 Channel) {
 
 // Set Basic Timer Incremental Mode (TIM2, TIM3, TIM4)
 void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow) {
+	
+	// Validation des horloges des périphériques Timer
+	if(Timer == TIM1) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_TIM1EN;
+	} else
+	if(Timer == TIM2) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM2EN;
+	} else
+	if(Timer == TIM3) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM3EN;
+	} else
+	if(Timer == TIM4) {
+		(RCC->APB1ENR)|= RCC_APB1ENR_TIM4EN;
+	}
+	
 	//Activation du mode encoder sur les 2 voies
 	Timer->SMCR |= 0x11;
 	
 	//Configuration de a valeur de l'autoreload
-	Timer->ARR = (u16) Overflow;
+	Timer->ARR = (u16)Overflow;
 }
 
 // Start incremental timer

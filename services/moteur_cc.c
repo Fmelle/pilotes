@@ -23,7 +23,7 @@ void Init_Moteur_CC(void) {
 float Duty_Cycle_Moteur_CC(void) {
 	
 	float duty = 0.0;
-	float duty_telecommande =(float)TIM4->CCR2;
+	float duty_telecommande = (float)TIM4->CCR2;
 	
 	// Valeur reel telecommande [G=2752 : N=3277 : D=3828]
 	if (duty_telecommande > 3260.0 && duty_telecommande < 3290.0) {
@@ -35,17 +35,17 @@ float Duty_Cycle_Moteur_CC(void) {
 		 Port_IO_Reset(GPIOA, 2);
 		 // Loi linéaire y=-(1.0/527)x+(3277*(1.0/527))
 		 duty = (-(1.0/527.0) * duty_telecommande) + (3285*(1.0/527.0)) ;	
-	 }
+	}
 	
 	
-	 if (duty_telecommande >= 3290.0) {
+	if (duty_telecommande >= 3290.0) {
 		 // Sens = 1 -> tribord
 		 Port_IO_Set(GPIOA, 2); 
 		 // Loi linéaire y=(1/549)x-(3277*(1/549))
 		 duty = ((1.0/549.0) * duty_telecommande) - (3285.0*(1.0/549.0));
 	}
 	
-	return duty ;
+	return duty;
 }
 	
 void Set_Commande_Moteur_CC(float Duty) {

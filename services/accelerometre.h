@@ -42,6 +42,6 @@ u8 Check_Angle_Tangage(u32 OFFSET);
 * @param void
 * @return angle
 **/
-int Return_Angle_Accelero(void);
+int Return_Angle_Accelero(float Ygo, float Ymax);
 
 #endif /* _ACCELEROMETRE_H__ */

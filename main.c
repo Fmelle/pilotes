@@ -1,5 +1,5 @@
 //__________________________________________________________
-// BINOME :
+// BINOME : 
 // ETAT : 
 //__________________________________________________________
 
@@ -11,20 +11,12 @@
 #include "../Applications/commandeplateau.h"
 #include "../Applications/surveillealerte.h"
 
+// Variable globale de compteur
+int Compteur_Systick = 0;
+
 // Set Systick handler
 void Cycle (void) {
-	u8 FlagAccelero = Controle_Inclinaison_Bateau();
-	u8 FlagBatterie = Controle_Batterie_Faible();
-	
-	// Surveille commande voiles
-	if(FlagAccelero == 0) {
-		Update_Commande_Voiles();
-	} else {
-		Close_Voiles();
-	}
-	
-	// Surveille commande plateau
-	Update_Commande_Plateau();
+ 	Compteur_Systick++;
 }
 
 int main (void) {
@@ -39,12 +31,40 @@ int main (void) {
 	// Init commande du plateau
 	Init_Commande_Plateau();
 
-	// SYSTICK Init and config (Period: 100ms ; Priority: 2)
-	Duree_Systick = Duree Systick_Period(100000);
+	// SYSTICK Init and config (Period: 33ms ; Priority: 2)
+	Duree_Systick = Systick_Period(33000);
 	Systick_Prio_IT(2, Cycle);
 	SysTick_On;
 	SysTick_Enable_IT;
-
+	
+	// Surveille bateau
+	while(1) {
+		
+		if (Compteur_Systick % 3 == 1) {
+			// Surveille inclinaison
+			u8 FlagAccelero = Controle_Inclinaison_Bateau();
+			// Surveille commande voiles
+			if(FlagAccelero == 1) {
+				Release_Voiles();
+			} else {
+				Update_Commande_Voiles();
+			}
+		}
+				
+		if (Compteur_Systick % 9 == 0) {
+			// Surveille commande plateau
+			Update_Commande_Plateau();	
+		}
+			
+		if (Compteur_Systick % 303 == 0){
+			// Surveille batterie
+			Controle_Batterie_Faible();
+			// Re-init du compteur systick
+			Compteur_Systick = 0 ;
+		}
+		
+	}
+	
 	return 0;
 }
 

@@ -8,21 +8,19 @@ char Port_IO_Init_General_Output(GPIO_TypeDef * Port, u8 Broche) {
 	}
 
 	// Validation des horloges des périphériques GPIO
-	switch (Port) {
-		case GPIOA:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
-			break;
-		case GPIOB:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
-			break;
-		case GPIOC:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
-			break;
-		case GPIOD:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
-			break;
-		default:
-			return -1;
+	if(Port == GPIOA) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+	} else
+	if(Port == GPIOB) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+	} else
+	if(Port == GPIOC) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+	} else
+	if(Port == GPIOD) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+	} else {
+		return -1;
 	}
 	
 	if (Broche < 8) {
@@ -47,21 +45,19 @@ char Port_IO_Init_Alternative_Output(GPIO_TypeDef * Port, u8 Broche) {
 	}
 
 	// Validation des horloges des périphériques GPIO
-	switch (Port) {
-		case GPIOA:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
-			break;
-		case GPIOB:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
-			break;
-		case GPIOC:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
-			break;
-		case GPIOD:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
-			break;
-		default:
-			return -1;
+	if(Port == GPIOA) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+	} else
+	if(Port == GPIOB) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+	} else
+	if(Port == GPIOC) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+	} else
+	if(Port == GPIOD) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+	} else {
+		return -1;
 	}
 
 	if(Broche < 8) {
@@ -88,21 +84,19 @@ char Port_IO_Init_Input(GPIO_TypeDef * Port, u8 Broche) {
 	}
 
 	// Validation des horloges des périphériques GPIO
-	switch (Port) {
-		case GPIOA:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
-			break;
-		case GPIOB:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
-			break;
-		case GPIOC:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
-			break;
-		case GPIOD:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
-			break;
-		default:
-			return -1;
+	if(Port == GPIOA) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+	} else
+	if(Port == GPIOB) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+	} else
+	if(Port == GPIOC) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+	} else
+	if(Port == GPIOD) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+	} else {
+		return -1;
 	}
 	
 	if (Broche < 8) {
@@ -121,21 +115,19 @@ char Port_IO_Init_Input_Analog(GPIO_TypeDef * Port, u8 Broche) {
 	}
 
 	// Validation des horloges des périphériques GPIO
-	switch (Port) {
-		case GPIOA:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
-			break;
-		case GPIOB:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
-			break;
-		case GPIOC:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
-			break;
-		case GPIOD:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
-			break;
-		default:
-			return -1;
+	if(Port == GPIOA) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+	} else
+	if(Port == GPIOB) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+	} else
+	if(Port == GPIOC) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+	} else
+	if(Port == GPIOD) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+	} else {
+		return -1;
 	}
 
 	if (Broche < 8) {
@@ -154,21 +146,19 @@ char Port_IO_Init_Input_Pullup(GPIO_TypeDef * Port, u8 Broche) {
 	}
 
 	// Validation des horloges des périphériques GPIO
-	switch (Port) {
-		case GPIOA:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
-			break;
-		case GPIOB:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
-			break;
-		case GPIOC:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
-			break;
-		case GPIOD:
-			(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
-			break;
-		default:
-			return -1;
+	if(Port == GPIOA) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPAEN;
+	} else
+	if(Port == GPIOB) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPBEN;
+	} else
+	if(Port == GPIOC) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPCEN;
+	} else
+	if(Port == GPIOD) {
+		(RCC->APB2ENR)|= RCC_APB2ENR_IOPDEN;
+	} else {
+		return -1;
 	}
 
 	if (Broche < 8) {

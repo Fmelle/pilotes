@@ -2,12 +2,21 @@
 #define _TIMER_H__
 
 /**
-* Récupérer frequence d'horloge
+* Récupérer fréquence d'horloge
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef) du
 * timer considéré
 * @return Le fréquence d'horloge (de type u32)
 **/
-u32 Get_Tim_Freq(TIM_TypeDef * Timer);
+u32 Get_Timer_Freq(TIM_TypeDef * Timer);
+
+
+/**
+* Récupérer le registre CCR du Timer au channel considéré
+* @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef) du
+* timer considéré
+* @return Le contenu de registre CCR au channel considéré (de type u16)
+**/
+u16 Get_Timer_CCR(TIM_TypeDef * Timer, u8 Channel);
 
 /**
 * Configure un Timer Simple
@@ -20,7 +29,7 @@ u32 Get_Tim_Freq(TIM_TypeDef * Timer);
 float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us);
 
 /**
-* Configure un Timer en PWM
+* Configure un Timer en PWM Output
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
 * timer considéré
 * @param Duree_us Intervalle de temps exprimé en μs entre
@@ -61,12 +70,12 @@ void Timer_Incremental_Init(TIM_TypeDef * Timer, int Overflow);
 void Timer_Start(TIM_TypeDef * Timer);
 
 /**
-* Demarre un Timer Avancé (TIM1 ou TIM8)
+* Demarre un Timer Simple en PWM Input (TIM2, TIM3, TIM4)
 * @param Timer Pointeur vers le jeu de registres (de type TIM_TypeDef ) du
 * timer considéré
 * @return void
 **/
-void Init_PWM_Input(TIM_TypeDef * Timer);
+void Init_PWM_Input_Voie_1_et_2(TIM_TypeDef * Timer);
 
 /**
 * Configure la routine d'interruption de TIM1 en mode UPDATE (débordement de timer)

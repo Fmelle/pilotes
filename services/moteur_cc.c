@@ -5,47 +5,96 @@
 
 
 void Init_Moteur_CC(void) {
-	// Le moteur est rélié (physiquement) à PA1 ,PA2 sur TIM2 Channel 2 et 3
-	
-	Port_IO_Init_General_Output(GPIOA,2);
-	Port_IO_Init_Alternative_Output(GPIOA,1);
-	Port_IO_Init_Input(GPIOB, 6);
-	
-	// On initialise le recepteur de la telecommande
-	Timer_Basic_Init(TIM4, 30000);
-	Init_PWM_Input(TIM4);
-	
-	// On veut une frequence de 50Hz -> T=20ms
+	// Le moteur est rélié (physiquement) à PA1, PA2  - sur TIM2 Channel 2 et 3
+	float duree_cycle;
+
+	// Initialisation du recepteur de la telecommande
+	duree_cycle = Timer_Basic_Init(TIM4, 30000);
+	Init_PWM_Input_Voie_1_et_2(TIM4);
+	Port_IO_Init_Input_Pullup(GPIOB, 6);
+
+	// Initialisation du Moteur CC
+	Port_IO_Init_General_Output(GPIOA, 2);
+	Port_IO_Init_Alternative_Output(GPIOA, 1);
+
+	// On veut une frequence de 50Hz -> T = 20ms
 	Timer_PWM_Init(TIM2, 20000, 2);
 	Timer_PWM_Init(TIM2, 20000, 3);
 }
 
 float Duty_Cycle_Moteur_CC(void) {
-	
+	// Init duty a envoyer
 	float duty = 0.0;
-	float duty_telecommande = (float)TIM4->CCR2;
+
+	// Récupération du rapport entre Channel 1 et Channel 2
+	// du Timer 4 pour determiner l'impulsion recu
+	// -> Sens et vitesse
+	float rapport_impulsion;
+	u16 duty_TIM4_1, duty_TIM4_2;
 	
-	// Valeur reel telecommande [G=2752 : N=3277 : D=3828]
-	if (duty_telecommande > 3260.0 && duty_telecommande < 3290.0) {
-		 duty = 0.0 ;
-	}	
-			
-	if (duty_telecommande <= 3260.0) {
-		 // Sens = 0 -> babord
-		 Port_IO_Reset(GPIOA, 2);
-		 // Loi linéaire y=-(1.0/527)x+(3277*(1.0/527))
-		 duty = (-(1.0/527.0) * duty_telecommande) + (3285*(1.0/527.0)) ;	
-	}
+	duty_TIM4_1 = Get_Timer_CCR(TIM4, 1);
+	duty_TIM4_2 = Get_Timer_CCR(TIM4, 2);
+
+	rapport_impulsion = ((float)duty_TIM4_2/(float)duty_TIM4_1);
+
+	// Determination du sens et vitesse
+	///////////////////////////////////
+	//if (rapport_impulsion > X && rapport_impulsion < X) {
+	//	 // État de repos
+	//	 duty = 0.0;
+	//}	
 	
-	
-	if (duty_telecommande >= 3290.0) {
-		 // Sens = 1 -> tribord
-		 Port_IO_Set(GPIOA, 2); 
-		 // Loi linéaire y=(1/549)x-(3277*(1/549))
-		 duty = ((1.0/549.0) * duty_telecommande) - (3285.0*(1.0/549.0));
-	}
-	
-	return duty;
+	// Sens babord légère		
+	//if (rapport_impulsion > X && rapport_impulsion < X) {
+	//	 // Sens babord
+	//	 Port_IO_Reset(GPIOA, 2);
+	//	 // Vitesse
+	//	 duty = 0.25;
+	//}
+
+	// Sens tribord légère	
+	//if (rapport_impulsion > X && rapport_impulsion < X) {
+	//	 // Sens tribord
+	//	 Port_IO_Set(GPIOA, 2); 
+	//	 // Vitesse
+	//	 duty = 0.25;
+	//}
+
+	// Sens babord normal		
+	//if (rapport_impulsion > X && rapport_impulsion < X) {
+	//	 // Sens babord
+	//	 Port_IO_Reset(GPIOA, 2);
+	//	 // Vitesse
+	//	 duty = 0.50;
+	//}
+
+	// Sens tribord normal	
+	//if (rapport_impulsion > X && rapport_impulsion < X) {
+	//	 // Sens tribord
+	//	 Port_IO_Set(GPIOA, 2); 
+	//	 // Vitesse
+	//	 duty = 0.50;
+	//}
+
+	// Sens babord max		
+	//if (rapport_impulsion > X && rapport_impulsion < X) {
+	//	 // Sens babord
+	//	 Port_IO_Reset(GPIOA, 2);
+	//	 // Vitesse
+	//	 duty = 0.75;
+	//}
+
+	// Sens tribord max	
+	//if (rapport_impulsion > X && rapport_impulsion < X) {
+	//	 // Sens tribord
+	//	 Port_IO_Set(GPIOA, 2); 
+	//	 // Vitesse
+	//	 duty = 0.75;
+	//}
+	///////////////////////////////////
+
+	// return duty;
+	return 0;
 }
 	
 void Set_Commande_Moteur_CC(float Duty) {

@@ -13,8 +13,24 @@ static void (* ptfcTim2) (void);
 ///////////////////////////////////////////////////////////
 
 // Get Timer Frequence
-u32 Get_Tim_Freq(TIM_TypeDef * Timer) {
+u32 Get_Timer_Freq(TIM_TypeDef * Timer) {
 	return CLOCK_GetTIMCLK(Timer);
+}
+
+// Get Timer CCR register
+u16 Get_Timer_CCR(TIM_TypeDef * Timer, u8 Channel) {
+	switch (Channel) {
+		case 1:
+			return (u16)Timer->CCR1;
+		case 2:
+			return (u16)Timer->CCR2;
+		case 3:
+			return (u16)Timer->CCR3;
+		case 4:
+			return (u16)Timer->CCR4;
+		default:
+			return 0;
+	}
 }
 
 /////////////////						  /////////////////
@@ -59,7 +75,7 @@ float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
 }
 
-// Set Advanced Timer PWM (TIM1, TIM8) Input
+// Set Advanced Timer PWM Output
 float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	u32 frequence_timer = Get_Tim_Freq(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
@@ -94,40 +110,35 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	// APPLICATION: Init en bordage des voiles
 	switch (Channel) {
 		case 1:
-			Timer->CCR1 = (u16)((float)ARR * 0.05);
+			Timer->CCR1 = (u16)((float)ARR * 0);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 2:
-			Timer->CCR2 = (u16)((float)ARR * 0.05);
+			Timer->CCR2 = (u16)((float)ARR * 0);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 3:
-			Timer->CCR3 = (u16)((float)ARR * 0.05);
+			Timer->CCR3 = (u16)((float)ARR * 0);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		case 4:
-			Timer->CCR4 = (u16)((float)ARR * 0.05);
+			Timer->CCR4 = (u16)((float)ARR * 0);
 			// Configuration en mode PWM Mode 1
 			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
 			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
 			break;
 		default:
-			Timer->CCR1 = (u16)((float)ARR * 0.05);
-			// Configuration en mode PWM Mode 1
-			Timer->CCMR1 &= ~(0x1 << ((Channel - 1) * 8 + 4));
-			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 5));
-			Timer->CCMR1 |= (0x1 << ((Channel - 1) * 8 + 6));
-			break;
+			return -1.0;
 	}
 
 	// Enable PWM
@@ -145,6 +156,7 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 	return ((PSC + 1.0) * (ARR + 1.0)) / frequence_timer * 1000000.0;
 }
 
+// Set Advanced Timer (TIM1, TIM8) duree du signal output du PWM
 float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Arr, u8 Channel) {
 	float CCR, ARR = (float)Timer->ARR;
 	u32 frequence_timer = Get_Tim_Freq(Timer);
@@ -205,8 +217,8 @@ void Timer_Start(TIM_TypeDef * Timer) {
 	Timer->CR1 |= (0x01 << 0);
 }
 
-// Set Advanced Timer PWM (TIM1, TIM8) Input
-void Init_PWM_Input(TIM_TypeDef * Timer) {
+// Set Basic Timer PWM (TIM2, TIM3, TIM4) Input
+void Init_PWM_Input_Voie_1_et_2(TIM_TypeDef * Timer) {
 	// Select the active input for TIMx_CCR1: write the CC1S bits to 01 in the TIMx_CCMR1
 	// register (TI1 selected).
 	Timer->CCMR1 |= TIM_CCMR1_CC1S_0 ;
@@ -225,7 +237,7 @@ void Init_PWM_Input(TIM_TypeDef * Timer) {
 	// Select the active polarity for TI1FP2 (used for capture in TIMx_CCR2): write the CC2P
 	// bit to ‘1’ in the TIMx_CCER(active on falling edge).
 
-  	Timer->CCER |= (TIM_CCER_CC2P );
+  	Timer->CCER |= (TIM_CCER_CC2P);
 	
 	// Select the valid trigger input: write the TS bits to 101 in the TIMx_SMCR register
 	//(TI1FP1 selected).

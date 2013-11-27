@@ -84,12 +84,22 @@ void Init_Transm_USART (USART_TypeDef *USART, int Baud) {
 	USART->SR &= ~(1 << 6);
 }
 
-//Fonction qui envoie un caractere via l'USART
-void Transm_USART(USART_TypeDef *USART, char *caractere){
+// Envoie un caractere via l'USART
+void Transm_USART(USART_TypeDef * USART, char *caractere) {
 		
 	//On active la transmission en mettant el bit TE de USART_CR1 a 1
 	USART->CR1 |= (1 << 3);
 		
 	//Ecriture du caractere a envoyer dans USART_DR
 	USART->DR= (*caractere);	
+}
+
+// Envoie un nombre via l'USART
+void Transm_Nb_USART(USART_TypeDef * USART, int nb) {
+		
+	//On active la transmission en mettant el bit TE de USART_CR1 a 1
+	USART->CR1 |= (1 << 3);
+		
+	// Ecriture du nombre a envoyer dans USART_DR
+	USART->DR = nb;
 }

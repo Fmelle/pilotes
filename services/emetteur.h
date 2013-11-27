@@ -1,9 +1,13 @@
-#include "stm32f10x.h"
-#include "../usart/usart.h"
-#include "../gpio/gpio.h"
+#ifndef _EMETTEUR_H__
+#define _EMETTEUR_H__
 
 //Initialise l'emmetteur
 void Init_Emetteur (void);
 
-//Envoie une chaine de caractere
+// Envoyer une chaine de caractere
 void Send_Chaine(char * Chaine);
+
+// Envoyer une nombre integer
+void Send_Number(int nb);
+
+#endif /* _EMETTEUR_H__ */

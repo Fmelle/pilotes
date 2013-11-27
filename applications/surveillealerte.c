@@ -9,23 +9,23 @@ u32 OFFSET = 0;
 
 void Init_Surveille_Alerte(void) {
 	
-	char Introduction1[]="\n\r/////////////////////////\n\r";
-	char Introduction2[]="\n\r// * PROJECT VOILIER * //\n\r";
-	char Introduction3[]="\n\r/////////////////////////\n\r";
-	char Introduction4[]="\n\r// Par:                //\n\r";
-	char Introduction5[]="\n\r//      CID Ludovic    //\n\r";
-	char Introduction6[]="\n\r//      DELBECQ Scott  //\n\r";
-	char Introduction7[]="\n\r//      MELLE Fridtjof //\n\r";
-	char Introduction8[]="\n\r//      NEROME Nelson  //\n\r";
-	char Introduction9[]="\n\r//                     //\n\r";
-	char IntroductionA[]="\n\r/////////////////////////\n\r";
-	char IntroductionB[]="\n\r//   4 AE IS           //\n\r";
-	char IntroductionC[]="\n\r//   INSA Toulouse     //\n\r";
-	char IntroductionD[]="\n\r//                     //\n\r";
-	char IntroductionE[]="\n\r//				2013 //\n\r";
-	char IntroductionF[]="\n\r/////////////////////////\n\r";
-	char IntroductionG[]="\n\r//\n\r";
-	char IntroductionH[]="\n\r//\n\r";
+	char Introduction1[]="/////////////////////////\n\r";
+	char Introduction2[]="// * PROJECT VOILIER * //\n\r";
+	char Introduction3[]="/////////////////////////\n\r";
+	char Introduction4[]="// Par:                //\n\r";
+	char Introduction5[]="//      CID Ludovic    //\n\r";
+	char Introduction6[]="//      DELBECQ Scott  //\n\r";
+	char Introduction7[]="//      MELLE Fridtjof //\n\r";
+	char Introduction8[]="//      NEROME Nelson  //\n\r";
+	char Introduction9[]="//                     //\n\r";
+	char IntroductionA[]="/////////////////////////\n\r";
+	char IntroductionB[]="//   4 AE IS           //\n\r";
+	char IntroductionC[]="//   INSA Toulouse     //\n\r";
+	char IntroductionD[]="//                     //\n\r";
+	char IntroductionE[]="//				2013 //\n\r";
+	char IntroductionF[]="/////////////////////////\n\r";
+	char IntroductionG[]="//\n\r";
+	char IntroductionH[]="//\n\r";
 	
 	Init_Accelerometre();
 	Init_Emetteur();
@@ -51,10 +51,10 @@ void Init_Surveille_Alerte(void) {
 
 	// Introduction finie
 
-	char Initialisation1[]="\n\r// // // // // // // // // // // // ///\n\r";
-	char Initialisation2[]="\n\r// *   Accelerometre initialisee   * //\n\r";
-	char Initialisation3[]="\n\r// // // // // // // // // // // // ///\n\r";
-	char Initialisation4[]="\n\r// * Veuillez tourner la girouette * //\n\n\n\r";
+	char Initialisation1[]="// // // // // // // // // // // // ///\n\r";
+	char Initialisation2[]="// *   Accelerometre initialisee   * //\n\r";
+	char Initialisation3[]="// // // // // // // // // // // // ///\n\r";
+	char Initialisation4[]="// * Veuillez tourner la girouette * //\n\n\n\r";
 	
 	OFFSET = Calcul_Accelerometre_Offset();
 
@@ -67,15 +67,23 @@ u8 Controle_Batterie_Faible(void) {
 	u8 flag=0;
 	
 	// Definition des messages d'alerte pour la batterie
-	char Chaine1[]="\n\r * Batterie faible * \n\r";
+	char BatterieFaible[]="\n\r * Batterie faible * \n\r";
+	char PercBatterie[]="\n\rTension batterie (en percentage de valeur max): ";
 	
 	// Appel de la fonction CheckBatterie qui envoie 1 si la batterie 
 	// a perdu 20 % de sa tension continue initiale
 	flag = Check_Boat_Batterie_Below_80_percent();
 	
-	// if batterie faible envoie message d'alerte
+	// If batterie faible envoie message d'alerte
 	if (flag == 1) {
-		Send_Chaine(Chaine1);
+		Send_Chaine(BatterieFaible);
+	} else {
+		// Sinon envoie la tension du batterie en percentage
+		float Tension_Batterie = (float)Get_Batterie_Charge();
+		int Percentage = (int)(Tension_Batterie/12.0);
+		
+		Send_Chaine(PercBatterie);
+		Send_Number(Percentage);
 	}
 	
 	return flag;

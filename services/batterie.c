@@ -28,7 +28,7 @@ u8 Check_Batterie_Below_Level(float Seuil_Batterie, float Tension_Alim, float Po
 	int Tension_Batterie = 0;
 	float Tension_Batterie_Faible = 0.0;
 
-	// fill variables
+	// Fill variables
 	Tension_Batterie = Get_Batterie_Charge();
 	Tension_Batterie_Faible = Seuil_Batterie * Tension_Alim * Pont_Div * Resolution_ADC;
 

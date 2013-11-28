@@ -52,13 +52,13 @@ float Duty_Cycle_Moteur_CC(void) {
 	//			que le Moteur comprend bien 
 	//			les info recu par la télécommande
 	//
-	if (rapport_impulsion >= X && rapport_impulsion <= X) {
+	if (rapport_impulsion >= 0.107 && rapport_impulsion <= 0.120) {
 		 // État de repos
 		 duty = 0.0;
 	}	
 	
 	// Sens babord légère
-	if (rapport_impulsion >= X && rapport_impulsion < X) {
+	if (rapport_impulsion >= 0.100 && rapport_impulsion < 0.107) {
 		 // Sens babord
 		 Port_IO_Reset(GPIOA, 2);
 		 // Vitesse
@@ -66,7 +66,7 @@ float Duty_Cycle_Moteur_CC(void) {
 	}
 	
 	// Sens babord max		
-	if (rapport_impulsion > X && rapport_impulsion < X) {
+	if (rapport_impulsion > 0.09 && rapport_impulsion < 0.100) {
 		 // Sens babord
 		 Port_IO_Reset(GPIOA, 2);
 		 // Vitesse
@@ -74,7 +74,7 @@ float Duty_Cycle_Moteur_CC(void) {
 	}
 
 	// Sens tribord légère	
-	if (rapport_impulsion > X && rapport_impulsion <= X) {
+	if (rapport_impulsion > 0.120 && rapport_impulsion <= 0.127) {
 		 // Sens tribord
 		 Port_IO_Set(GPIOA, 2); 
 		 // Vitesse
@@ -82,7 +82,7 @@ float Duty_Cycle_Moteur_CC(void) {
 	}
 
 	// Sens tribord max	
-	if (rapport_impulsion > X && rapport_impulsion < X) {
+	if (rapport_impulsion > 0.13 && rapport_impulsion < 0.135) {
 		 // Sens tribord
 		 Port_IO_Set(GPIOA, 2); 
 		 // Vitesse

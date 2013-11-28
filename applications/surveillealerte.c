@@ -22,7 +22,7 @@ void Init_Surveille_Alerte(void) {
 	char IntroductionB[]="//   4 AE IS           //\n\r";
 	char IntroductionC[]="//   INSA Toulouse     //\n\r";
 	char IntroductionD[]="//                     //\n\r";
-	char IntroductionE[]="//				        2013 //\n\r";
+	char IntroductionE[]="//................2013 //\n\r";
 	
 	Init_Accelerometre();
 	Init_Emetteur();

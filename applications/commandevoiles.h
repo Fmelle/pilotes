@@ -10,4 +10,7 @@ void Update_Commande_Voiles(void);
 // Fonction qui nous permet depuis le couche main de border les voiles
 void Release_Voiles(void);
 
+// Fonction qui mets en évidence pour l'utilisateur le vent mesuré
+void Send_Angle_Vent(void);
+
 #endif /* _COMMANDE_VOILES_H__ */

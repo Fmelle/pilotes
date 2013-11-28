@@ -5,9 +5,6 @@
 void Init_Transm_USART (USART_TypeDef * USART, int Baud);
 
 // Envoyer un caractere via l'USART
-void Transm_USART(USART_TypeDef * USART, char *caractere);
-
-// Envoyer un nombre via l'USART
-void Transm_Nb_USART(USART_TypeDef * USART, int nb);
+void Transm_USART(USART_TypeDef * USART, char caractere);
 
 #endif /* _USART_H__ */

@@ -40,7 +40,7 @@ u16 Get_Timer_CCR(TIM_TypeDef * Timer, u8 Channel) {
 
 // Set Basic Timer (TIM2, TIM3, TIM4)
 float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
-	u32 frequence_timer = Get_Tim_Freq(Timer);
+	u32 frequence_timer = Get_Timer_Freq(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
 	
 	// Validation des horloges des périphériques Timer
@@ -77,7 +77,7 @@ float Timer_Basic_Init(TIM_TypeDef * Timer, float Duree_us) {
 
 // Set Advanced Timer PWM Output
 float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
-	u32 frequence_timer = Get_Tim_Freq(Timer);
+	u32 frequence_timer = Get_Timer_Freq(Timer);
 	float Duree_hz = 1000000.0 / Duree_us;
 	
 	// Validation des horloges des périphériques Timer
@@ -159,7 +159,7 @@ float Timer_PWM_Init(TIM_TypeDef * Timer, float Duree_us, u8 Channel) {
 // Set Advanced Timer (TIM1, TIM8) duree du signal output du PWM
 float Timer_PWM_Set_Duration(TIM_TypeDef * Timer, float Perc_Arr, u8 Channel) {
 	float CCR, ARR = (float)Timer->ARR;
-	u32 frequence_timer = Get_Tim_Freq(Timer);
+	u32 frequence_timer = Get_Timer_Freq(Timer);
 
 	// Configuration de durée de cycle pour le PWM
 	switch (Channel) {

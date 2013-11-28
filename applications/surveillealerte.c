@@ -22,10 +22,7 @@ void Init_Surveille_Alerte(void) {
 	char IntroductionB[]="//   4 AE IS           //\n\r";
 	char IntroductionC[]="//   INSA Toulouse     //\n\r";
 	char IntroductionD[]="//                     //\n\r";
-	char IntroductionE[]="//				2013 //\n\r";
-	char IntroductionF[]="/////////////////////////\n\r";
-	char IntroductionG[]="//\n\r";
-	char IntroductionH[]="//\n\r";
+	char IntroductionE[]="//				        2013 //\n\r";
 	
 	Init_Accelerometre();
 	Init_Emetteur();
@@ -45,22 +42,20 @@ void Init_Surveille_Alerte(void) {
 	Send_Chaine(IntroductionC);
 	Send_Chaine(IntroductionD);
 	Send_Chaine(IntroductionE);
-	Send_Chaine(IntroductionF);
-	Send_Chaine(IntroductionG);
-	Send_Chaine(IntroductionH);
 
 	// Introduction finie
 
 	char Initialisation1[]="// // // // // // // // // // // // ///\n\r";
 	char Initialisation2[]="// *   Accelerometre initialisee   * //\n\r";
 	char Initialisation3[]="// // // // // // // // // // // // ///\n\r";
-	char Initialisation4[]="// * Veuillez tourner la girouette * //\n\n\n\r";
+	char Initialisation4[]="// * Veuillez tourner la girouette * //\n\r";
 	
 	OFFSET = Calcul_Accelerometre_Offset();
 
 	Send_Chaine(Initialisation1);
 	Send_Chaine(Initialisation2);
 	Send_Chaine(Initialisation3);
+	Send_Chaine(Initialisation4);
 }
 
 u8 Controle_Batterie_Faible(void) {
@@ -68,7 +63,6 @@ u8 Controle_Batterie_Faible(void) {
 	
 	// Definition des messages d'alerte pour la batterie
 	char BatterieFaible[]="\n\r * Batterie faible * \n\r";
-	char PercBatterie[]="\n\rTension batterie (en percentage de valeur max): ";
 	
 	// Appel de la fonction CheckBatterie qui envoie 1 si la batterie 
 	// a perdu 20 % de sa tension continue initiale
@@ -77,15 +71,8 @@ u8 Controle_Batterie_Faible(void) {
 	// If batterie faible envoie message d'alerte
 	if (flag == 1) {
 		Send_Chaine(BatterieFaible);
-	} else {
-		// Sinon envoie la tension du batterie en percentage
-		float Tension_Batterie = (float)Get_Batterie_Charge();
-		int Percentage = (int)(Tension_Batterie/12.0);
-		
-		Send_Chaine(PercBatterie);
-		Send_Number(Percentage);
 	}
-	
+		
 	return flag;
 }
 
@@ -105,4 +92,19 @@ u8 Controle_Inclinaison_Bateau(void) {
 	}
 	
 	return flag;
+}
+
+void Send_Perc_Tension_Batterie(void) {
+	char PercBatterie[]="\n\rPerc tension batterie restant: ";
+	// Cahier des charges pour l'alimentation
+	const float Alim = 12.0;
+	const float Pont_Diviseur = 1./13.;
+	const float Resolution_ADC = 4096./3.3;
+	// Calcul de tension de la batterie en percentage
+	float Tension_Batterie = (float)(Get_Batterie_Charge());
+	float Tension_Max = (float)(Alim * Pont_Diviseur * Resolution_ADC);
+	int Percentage_Restant = (int)(Tension_Batterie/Tension_Max * 100.0);
+	
+	Send_Chaine(PercBatterie);
+	Send_Number(Percentage);
 }

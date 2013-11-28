@@ -25,7 +25,7 @@ void Send_Chaine(char * Chaine) {
 	// Port_IO_Set(GPIOA,11); --> voir remarque
 	
 	while ((*Caractere)!='\0') {
-		Transm_USART(USART1,Caractere);	
+		Transm_USART(USART1, (*Caractere));	
 		// Pour pas remplir le buffer du recepteur (Connecté à l'ordinateur)
 		for (i=0 ; i < 100000 ; i++);
 		Caractere++;
@@ -40,7 +40,14 @@ void Send_Chaine(char * Chaine) {
 
 // Envoyer un nombre integer
 void Send_Number(int nb) {
-	Transm_Nb_USART(USART1, nb);
+	int i;
+	/////////////////////////////
+	// TODO2:
+	//		Implementation d'un
+	//		algorithme qui transforme
+	//		int -> tableau de chars
+
+	Transm_USART(USART1, (char)(((int)'0') + nb));
 	// Pour pas remplir le buffer du recepteur (Connecté à l'ordinateur)
 	for (i=0 ; i < 100000 ; i++);
 }

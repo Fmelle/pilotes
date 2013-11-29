@@ -45,10 +45,10 @@ void Init_Surveille_Alerte(void) {
 
 	// Introduction finie
 
-	char Initialisation1[]="// // // // // // // // // // // // ///\n\r";
-	char Initialisation2[]="// *   Accelerometre initialisee   * //\n\r";
-	char Initialisation3[]="// // // // // // // // // // // // ///\n\r";
-	char Initialisation4[]="// * Veuillez tourner la girouette * //\n\r";
+	char Initialisation1[]="//////////////////////////\n\r";
+	char Initialisation2[]="//* Init accelerometre *//\n\r";
+	char Initialisation3[]="//////////////////////////\n\r";
+	char Initialisation4[]="//* Tournez girouette  *//\n\r";
 	
 	OFFSET = Calcul_Accelerometre_Offset();
 
@@ -62,7 +62,7 @@ u8 Controle_Batterie_Faible(void) {
 	u8 flag=0;
 	
 	// Definition des messages d'alerte pour la batterie
-	char BatterieFaible[]="\n\r * Batterie faible * \n\r";
+	char BatterieFaible[]="\n\r* Batterie faible *\n\r";
 	
 	// Appel de la fonction CheckBatterie qui envoie 1 si la batterie 
 	// a perdu 20 % de sa tension continue initiale
@@ -80,7 +80,7 @@ u8 Controle_Inclinaison_Bateau(void) {
 	u8 flag=0;
 	
 	// Definition des messages d'alerte pour l'inclinaison du bateau
-	char Chaine1[]="\n\r * Angle tangage du bateau > 45 * \n\r";
+	char Chaine1[]="\n\r* Angle roulis > 45 *\n\r";
 
 	// Appel de la fonction CheckInclinaison qui envoie 1 si l'inclinasion du
 	// bateau est plus grande de 45 degres, 0 sinon
@@ -95,7 +95,7 @@ u8 Controle_Inclinaison_Bateau(void) {
 }
 
 void Send_Perc_Tension_Batterie(void) {
-	char PercBatterie[]="\n\rPerc tension batterie restant: ";
+	char PercBatterie[]="\n\rPerc batterie restant: ";
 	// Cahier des charges pour l'alimentation
 	const float Alim = 12.0;
 	const float Pont_Diviseur = 1./13.;

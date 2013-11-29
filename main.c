@@ -56,11 +56,11 @@ int main (void) {
 			Update_Commande_Plateau();	
 		}
 			
-		if (Compteur_Systick % 303 == 0){
+		if (Compteur_Systick % 303 == 0) {
 			// Surveille batterie
 			Controle_Batterie_Faible();
 			// Re-init du compteur systick
-			Compteur_Systick = 0 ;
+			Compteur_Systick = 0;
 		}
 		
 	}

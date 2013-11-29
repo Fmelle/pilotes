@@ -33,7 +33,7 @@ int main (void) {
 
 	// SYSTICK Init and config (Period: 33ms ; Priority: 2)
 	Duree_Systick = Systick_Period(33000);
-	Systick_Prio_IT(2, Cycle);
+	Systick_Prio_IT(5, Cycle);
 	SysTick_On;
 	SysTick_Enable_IT;
 	

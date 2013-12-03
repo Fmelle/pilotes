@@ -103,8 +103,8 @@ void Send_Perc_Tension_Batterie(void) {
 	// Calcul de tension de la batterie en percentage
 	float Tension_Batterie = (float)(Get_Batterie_Charge());
 	float Tension_Max = (float)(Alim * Pont_Diviseur * Resolution_ADC);
-	int Percentage_Restant = (int)(Tension_Batterie/Tension_Max * 100.0);
+	unsigned int Percentage_Restant = (unsigned int)(Tension_Batterie/Tension_Max * 100.0);
 	
 	Send_Chaine(PercBatterie);
-	Send_Number(Percentage);
+	Send_Number(Percentage_Restant);
 }

@@ -37,21 +37,9 @@ float Duty_Cycle_Moteur_CC(void) {
 
 	// Rapport de Channel 2 (polarisé) Channel 1 (non-polarisé)
 	// pour en déduire direction souhaité à partir de tout
-	// télécommande
+	// télécommande (mode Capture/Compare)
 	rapport_impulsion = ((float)duty_TIM4_2/(float)duty_TIM4_1);
 
-	// Determination du sens et vitesse
-	///////////////////////////////////
-	//
-	// Problème de maitrîser la translation
-	// de l'info recu par le Recepteur
-	// qui plaît bien le Moteur CC	
-	//
-	//	TODO1:
-	//			Trouver une système X afin
-	//			que le Moteur comprend bien 
-	//			les info recu par la télécommande
-	//
 	if (rapport_impulsion >= 0.107 && rapport_impulsion <= 0.120) {
 		 // État de repos
 		 duty = 0.0;
@@ -88,7 +76,6 @@ float Duty_Cycle_Moteur_CC(void) {
 		 // Vitesse
 		 duty = 0.66;
 	}
-	///////////////////////////////////
 
 	return duty;
 }

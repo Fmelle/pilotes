@@ -37,11 +37,4 @@ u32 Calcul_Accelerometre_Offset(void);
 **/
 u8 Check_Angle_Tangage(u32 OFFSET);
 
-/**
-* Get angle tangage de bateau
-* @param void
-* @return angle
-**/
-int Return_Angle_Accelero(float Ygo, float Ymax);
-
 #endif /* _ACCELEROMETRE_H__ */

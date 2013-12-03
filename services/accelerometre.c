@@ -2,7 +2,6 @@
 #include "../gpio/gpio.h"
 #include "../adc/adc.h"
 #include "accelerometre.h"
-#include "math.h"
 
 void Init_Accelerometre(void) {
 	// Init GPIO ports and ADC
@@ -35,7 +34,6 @@ u32 Calcul_Accelerometre_Offset(void) {
 	
 	//// Calcul de OFFSET
 	// On calcule l'OFFSET sur 100 mesures de l'axe X
-	// - 100 parce que c'est la valeur delta des variations de valeurs
 	// - L'axe X represente l'OFFSET de l'accéléromètre du position initiale
 	// 	 --> Au position initiale: l'axe X est égale à 0
 	while (i < 100) {
@@ -75,15 +73,4 @@ u8 Check_Angle_Tangage(u32 OFFSET) {
 	}
 	
 	return Flag_45;
-}
-
-
-int Return_Angle_Accelerometre(float Ygo, float Ymax) {
-	float Y = 0.0;
-	int angle=0;
-	
-	Y = Get_Valeur_Y();
-	angle = (acos((Y-Ymax)/(Ygo-Ymax)))*(180/M_PI);
-	
-	return angle;
 }

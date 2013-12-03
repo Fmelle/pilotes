@@ -36,5 +36,5 @@ void Send_Angle_Vent(void) {
 	char IntroAngleVent[]="\n\rAngle de vent: ";
 	// Emission de l'angle du vent
 	Send_Chaine(IntroAngleVent);
-	Send_Number((int)Return_Angle_Girouette());
+	Send_Number((unsigned int)Return_Angle_Girouette());
 }

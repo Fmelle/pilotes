@@ -20,7 +20,7 @@ void Init_ADC_Converter(ADC_TypeDef * ADC) {
 }
 
 void Set_Cycles_ADC(ADC_TypeDef * ADC, float nb_cycles) {
-	int champ=0,num_bit=0;
+	int champ = 0, num_bit = 0;
 
 	if (nb_cycles == 1.5){
 		// 000 : 1.5 cycles

@@ -17,6 +17,29 @@ int Compteur_Systick = 0;
 // Set Systick handler
 void Cycle (void) {
  	Compteur_Systick++;
+
+	if (Compteur_Systick % 3 == 1) {
+		// Surveille inclinaison
+		u8 FlagAccelero = Controle_Inclinaison_Bateau();
+		// Surveille commande voiles
+		if(FlagAccelero == 1) {
+			Release_Voiles();
+		} else {
+			Update_Commande_Voiles();
+		}
+	}
+			
+	if (Compteur_Systick % 9 == 0) {
+		// Surveille commande plateau
+		Update_Commande_Plateau();	
+	}
+		
+	if (Compteur_Systick % 303 == 0) {
+		// Surveille batterie
+		Controle_Batterie_Faible();
+		// Re-init du compteur systick
+		Compteur_Systick = 0;
+	}
 }
 
 int main (void) {
@@ -38,32 +61,7 @@ int main (void) {
 	SysTick_Enable_IT;
 	
 	// Surveille bateau
-	while(1) {
-		
-		if (Compteur_Systick % 3 == 1) {
-			// Surveille inclinaison
-			u8 FlagAccelero = Controle_Inclinaison_Bateau();
-			// Surveille commande voiles
-			if(FlagAccelero == 1) {
-				Release_Voiles();
-			} else {
-				Update_Commande_Voiles();
-			}
-		}
-				
-		if (Compteur_Systick % 9 == 0) {
-			// Surveille commande plateau
-			Update_Commande_Plateau();	
-		}
-			
-		if (Compteur_Systick % 303 == 0) {
-			// Surveille batterie
-			Controle_Batterie_Faible();
-			// Re-init du compteur systick
-			Compteur_Systick = 0;
-		}
-		
-	}
+	while(1);
 	
 	return 0;
 }

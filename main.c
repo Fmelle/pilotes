@@ -1,6 +1,6 @@
 //__________________________________________________________
-// BINOME : 
-// ETAT : 
+// ETAT/STATE : TESTED SUCCESSFULLY
+// DATE: 04/12/13
 //__________________________________________________________
 
 //____ registres de périphériques du stm_32
@@ -54,7 +54,7 @@ int main (void) {
 	// Init commande du plateau
 	Init_Commande_Plateau();
 
-	// SYSTICK Init and config (Period: 33ms ; Priority: 2)
+	// SYSTICK Init and config (Period: 33ms ; Priority: 5)
 	Duree_Systick = Systick_Period(33000);
 	Systick_Prio_IT(5, Cycle);
 	SysTick_On;
